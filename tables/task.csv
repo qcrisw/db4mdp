@@ -17,7 +17,7 @@
 78,Discover a Seed Point ,Items Base Layout ,31.png,58.png,U,70.png,[19],"CCA, t-SNE, NeRV",All but not FN,13,default,default
 81, Navigate in Map  ,Items Base Layout ,34.png,61.png,U,71.png,[15] [30],"CCA, t-SNE, NeRV",All but not FN,13,default,default
 82,Discover a Path in Map ,Items Base Layout ,35.png,62.png,U,71.png,[35] [45][63][39],"CCA, t-SNE, NeRV",All but not FN,13,default,default
-70,Map Data with Landmarks,Generate Layout ,23.png,51.png,MandU,-,,"{Landmark MDP}_{L-MDS,Pivot-MDS} ",Landmarks,1,default,default
+70,Map Data with Landmarks,Generate Layout ,23.png,51.png,MandU,-,-,"{Landmark MDP}_{L-MDS,Pivot-MDS} ",Landmarks,1,default,default
 88,Brush in Data Space ,Items in Enriched Layout,41.png,60.png,UandM,72.png,[15] [30],"PCA, Classical MDS, NLM, NeRV",All but not MN,3,default,default
 89,Navigate in Data Space ,Items in Enriched Layout,42.png,66.png,UandM,72.png,[30] [12],"PCA, Classical MDS, NLM, NeRV",All but not MN,3,default,default
 90,Discover a Path in Data Space ,Items in Enriched Layout,43.png,62.png,UandM,72.png,[30] [12],"PCA, Classical MDS, NLM, NeRV",All but not MN,3,default,default
