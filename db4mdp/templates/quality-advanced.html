@@ -7,8 +7,8 @@
 <br>
 <br>
 <div class="basicadvance" style="margin: 6px">
-  <a href="http://localhost:8000/quality-basic/0/" >Basic&nbsp&nbsp</a>
-  <a href="http://localhost:8000/qualityadvanced/home" class="button">Advanced</a>
+  <a href="/quality-basic/0/" >Basic&nbsp&nbsp</a>
+  <a href="/qualityadvanced/home" class="button">Advanced</a>
   </div>
   <br>
   <br>
@@ -208,23 +208,23 @@ AND QUERY Exclude: {{ q.measure_name}} <br>
 <script>
 function mine3() {
 if (window.location.href.indexOf("includeor") != -1){
-return "http://localhost:8000/quality-advanced/orinclude";
+return "/quality-advanced/orinclude";
 }
 if (window.location.href.indexOf("excludeor") != -1){
-return "http://localhost:8000/quality-advanced/orexclude";
+return "/quality-advanced/orexclude";
 }
 if (window.location.href.indexOf("includeand") != -1){
-return "http://localhost:8000/quality-advanced/andinclude";
+return "/quality-advanced/andinclude";
 }
 if (window.location.href.indexOf("excludeand") != -1){
-return "http://localhost:8000/quality-advanced/andexclude";
+return "/quality-advanced/andexclude";
 }
 }
 
 
 function generate(el) {
 
-string= 'http://localhost:8000/qualityadvanced?'
+string= '/qualityadvanced?'
 if (document.getElementById("correlation").value ==1){
 string+="correlation=Yes&"
 }

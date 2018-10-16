@@ -6,8 +6,8 @@
 <br>
 <br>
 <div class="basicadvance" style="margin: 6px">
-  <a href="http://localhost:8000/tasks-basic/0/" >Basic&nbsp&nbsp</a>
-  <a href="http://localhost:8000/taskadvanced/home" class="button">Advanced</a>
+  <a href="/tasks-basic/0/" >Basic&nbsp&nbsp</a>
+  <a href="/taskadvanced/home" class="button">Advanced</a>
   </div>
   <br>
   <br>
@@ -314,16 +314,16 @@ AND QUERY Exclude: {{ q.task_name}} <br>
 
 function mine3() {
 if (window.location.href.indexOf("includeor") != -1){
-return "http://localhost:8000/task-advanced/orinclude";
+return "/task-advanced/orinclude";
 }
 if (window.location.href.indexOf("excludeor") != -1){
-return "http://localhost:8000/task-advanced/orexclude";
+return "/task-advanced/orexclude";
 }
 if (window.location.href.indexOf("includeand") != -1){
-return "http://localhost:8000/task-advanced/andinclude";
+return "/task-advanced/andinclude";
 }
 if (window.location.href.indexOf("excludeand") != -1){
-return "http://localhost:8000/task-advanced/andexclude";
+return "/task-advanced/andexclude";
 }
 }
 
@@ -347,7 +347,7 @@ el.value = 0;
 
 function generate(el) { 
 
-string= 'http://localhost:8000/taskadvanced?'
+string= '/taskadvanced?'
 if (document.getElementById("21.png").value ==1){
 string+="21.png=21.png&"
 }

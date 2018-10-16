@@ -6,8 +6,8 @@
 <br>
 <br>
 <div class="basicadvance" style="margin: 6px">
-  <a href="http://localhost:8000/quality-basic/0/" class="button">Basic&nbsp&nbsp</a>
-  <a href="http://localhost:8000/qualityadvanced/home" >Advanced</a>
+  <a href="/quality-basic/0/" class="button">Basic&nbsp&nbsp</a>
+  <a href="/qualityadvanced/home" >Advanced</a>
   </div>
   <br>
   <br>
@@ -18,27 +18,27 @@
 <table style="max-width: 100%; width: 100%; color: #000000;" frame="box"  >
 
     <tr align="center"> 
-    <td><button class="butt2" id="btn57" onclick=window.location.href='http://localhost:8000/quality-basic/57/'>Correlation Coefficient</button></td>
-        <td><button class="butt2" id="btn62" onclick=window.location.href='http://localhost:8000/quality-basic/62/'>KL Diverg.</button></td>
-        <td><button class="butt2" id="btn67" onclick=window.location.href='http://localhost:8000/quality-basic/67/'>Persit. Homol.</button></td>
-        <td><button class="butt2" id="btn54" onclick=window.location.href='http://localhost:8000/quality-basic/54/'>Stress/Strain</button></td>
+    <td><button class="butt2" id="btn57" onclick=window.location.href='/quality-basic/57/'>Correlation Coefficient</button></td>
+        <td><button class="butt2" id="btn62" onclick=window.location.href='/quality-basic/62/'>KL Diverg.</button></td>
+        <td><button class="butt2" id="btn67" onclick=window.location.href='/quality-basic/67/'>Persit. Homol.</button></td>
+        <td><button class="butt2" id="btn54" onclick=window.location.href='/quality-basic/54/'>Stress/Strain</button></td>
     </tr>
     <tr align="center"> 
-    <td><button class="butt2" id="btn63" onclick=window.location.href='http://localhost:8000/quality-basic/63/'>Global Quality Qy</button></td>
-        <td><button class="butt2" id="btn60" onclick=window.location.href='http://localhost:8000/quality-basic/60/'>LC Meta-criterion </button></td>
-        <td><button class="butt2" id="btn61" onclick=window.location.href='http://localhost:8000/quality-basic/61/'>Procrustes Measure </button></td>
-        <td><button class="butt2" id="btn56" onclick=window.location.href='http://localhost:8000/quality-basic/56/'>Topographic Product </button></td>
+    <td><button class="butt2" id="btn63" onclick=window.location.href='/quality-basic/63/'>Global Quality Qy</button></td>
+        <td><button class="butt2" id="btn60" onclick=window.location.href='/quality-basic/60/'>LC Meta-criterion </button></td>
+        <td><button class="butt2" id="btn61" onclick=window.location.href='/quality-basic/61/'>Procrustes Measure </button></td>
+        <td><button class="butt2" id="btn56" onclick=window.location.href='/quality-basic/56/'>Topographic Product </button></td>
     </tr>
     <tr align="center"> 
-    <td><button class="butt2" id="btn65" onclick=window.location.href='http://localhost:8000/quality-basic/65/'>Graph-based Family</button></td>
-        <td><button class="butt2" id="btn59" onclick=window.location.href='http://localhost:8000/quality-basic/59/'>Mean Rel. Rank Errors </button></td>
-        <td><button class="butt2" id="btn66" onclick=window.location.href='http://localhost:8000/quality-basic/66/'>Smooth. Neigh. Pres. </button></td>
-        <td><button class="butt2" id="btn58" onclick=window.location.href='http://localhost:8000/quality-basic/58/'>Trustworthiness/Continuity </button></td>
+    <td><button class="butt2" id="btn65" onclick=window.location.href='/quality-basic/65/'>Graph-based Family</button></td>
+        <td><button class="butt2" id="btn59" onclick=window.location.href='/quality-basic/59/'>Mean Rel. Rank Errors </button></td>
+        <td><button class="butt2" id="btn66" onclick=window.location.href='/quality-basic/66/'>Smooth. Neigh. Pres. </button></td>
+        <td><button class="butt2" id="btn58" onclick=window.location.href='/quality-basic/58/'>Trustworthiness/Continuity </button></td>
     </tr>
     <tr align="center"> 
         <td></td>
-        <td><button class="butt2" id="btn64" onclick=window.location.href='http://localhost:8000/quality-basic/64/'>NIEQA</button></td>
-        <td><button class="butt2" id="btn55" onclick=window.location.href='http://localhost:8000/quality-basic/55/'>Spearman's Correlation  </button></td>
+        <td><button class="butt2" id="btn64" onclick=window.location.href='/quality-basic/64/'>NIEQA</button></td>
+        <td><button class="butt2" id="btn55" onclick=window.location.href='/quality-basic/55/'>Spearman's Correlation  </button></td>
         <td></td>
     </tr>
 </table>
@@ -124,7 +124,7 @@ var string = "quality-basic/" + number + "/";
 var string2="btn" + number;
 
 function mine2() {
-return "http://localhost:8000/quality-basic/" + number + "/export/";
+return "/quality-basic/" + number + "/export/";
 }
 
 if ((window.location.href.indexOf(string) != -1) &&(number!="0")) {

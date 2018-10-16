@@ -6,8 +6,8 @@
 <br>
 <br>
 <div class="basicadvance" style="margin: 6px">
-  <a href="http://localhost:8000/mdp-basic/0/" >Basic&nbsp&nbsp</a>
-  <a href="http://localhost:8000/mdpadvanced/home" class="button">Advanced</a>
+  <a href="/mdp-basic/0/" >Basic&nbsp&nbsp</a>
+  <a href="/mdpadvanced/home" class="button">Advanced</a>
   </div>
   <br>
   <br>
@@ -239,16 +239,16 @@
 <script>
 // function mine3() {
 // if (window.location.href.indexOf("includeor") != -1){
-// return "http://localhost:8000/mdp-advanced/orinclude";
+// return "/mdp-advanced/orinclude";
 // }
 // if (window.location.href.indexOf("excludeor") != -1){
-// return "http://localhost:8000/mdp-advanced/orexclude";
+// return "/mdp-advanced/orexclude";
 // }
 // if (window.location.href.indexOf("includeand") != -1){
-// return "http://localhost:8000/mdp-advanced/andinclude";
+// return "/mdp-advanced/andinclude";
 // }
 // if (window.location.href.indexOf("excludeand") != -1){
-// return "http://localhost:8000/mdp-advanced/andexclude";
+// return "/mdp-advanced/andexclude";
 // }
 // }
 
@@ -299,7 +299,7 @@ y.style.display = "none";
 
 function generate(el) {
 
-string= 'http://localhost:8000/mdpadvanced?'
+string= '/mdpadvanced?'
 if (document.getElementById("cartesian").value ==1){
 string+="cartesian=Yes&"
 }

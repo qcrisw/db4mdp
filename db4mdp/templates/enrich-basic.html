@@ -13,15 +13,15 @@
         <td style="border-bottom: 1px solid black; font-size: 30px;"><b>Distortion Analysis</b></td>
     </tr>
     <tr align="center"> 
-        <td><button class="butt" id="btn101" onclick=window.location.href='http://localhost:8000/enrich-basic/101/'>Cluster-based Enrichment</button></td>
-        <td><button class="butt" id="btn104" onclick=window.location.href='http://localhost:8000/enrich-basic/104/'>Distortion Analysis via Probing</button></td>
+        <td><button class="butt" id="btn101" onclick=window.location.href='/enrich-basic/101/'>Cluster-based Enrichment</button></td>
+        <td><button class="butt" id="btn104" onclick=window.location.href='/enrich-basic/104/'>Distortion Analysis via Probing</button></td>
     </tr>
     <tr align="center"> 
-        <td><button class="butt" id="btn100" onclick=window.location.href='http://localhost:8000/enrich-basic/100/'>Direct Enrichment</button></td>
-        <td><button class="butt" id="btn103" onclick=window.location.href='http://localhost:8000/enrich-basic/103/'>Visualizing Trustworthy and Unreliable Regions</button></td>
+        <td><button class="butt" id="btn100" onclick=window.location.href='/enrich-basic/100/'>Direct Enrichment</button></td>
+        <td><button class="butt" id="btn103" onclick=window.location.href='/enrich-basic/103/'>Visualizing Trustworthy and Unreliable Regions</button></td>
     </tr>
     <tr align="center"> 
-        <td><button class="butt" id="btn102" onclick=window.location.href='http://localhost:8000/enrich-basic/102/'>Spatially Structured Enrichment</button></td>
+        <td><button class="butt" id="btn102" onclick=window.location.href='/enrich-basic/102/'>Spatially Structured Enrichment</button></td>
         <td></td>
     </tr>
 </table>
@@ -55,7 +55,7 @@ var string = "enrich-basic/" + number + "/";
 var string2="btn" + number
 
 function mine2() {
-return "http://localhost:8000/enrich-basic/" + number + "/export/";
+return "/enrich-basic/" + number + "/export/";
 }
 
 
