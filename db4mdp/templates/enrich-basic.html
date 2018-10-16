@@ -1,0 +1,85 @@
+{% extends 'layout/layout.html'%}
+
+{% block title%}Enrichment{% endblock %}
+{% block content %}
+    <div class="content">
+<br>
+
+<br>
+<br>
+<table style="max-width: 100%; width: 100%; color: #000000;" frame="box"  >
+    <tr align="center"> 
+        <td style="border-bottom: 1px solid black; font-size: 30px;"><b>Content Analysis</b></td>
+        <td style="border-bottom: 1px solid black; font-size: 30px;"><b>Distortion Analysis</b></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn101" onclick=window.location.href='http://localhost:8000/enrich-basic/101/'>Cluster-based Enrichment</button></td>
+        <td><button class="butt" id="btn104" onclick=window.location.href='http://localhost:8000/enrich-basic/104/'>Distortion Analysis via Probing</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn100" onclick=window.location.href='http://localhost:8000/enrich-basic/100/'>Direct Enrichment</button></td>
+        <td><button class="butt" id="btn103" onclick=window.location.href='http://localhost:8000/enrich-basic/103/'>Visualizing Trustworthy and Unreliable Regions</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn102" onclick=window.location.href='http://localhost:8000/enrich-basic/102/'>Spatially Structured Enrichment</button></td>
+        <td></td>
+    </tr>
+</table>
+<div id="myDIV">
+<br>
+<br>
+<table style="max-width: 100%; width: 100%; color: #000000;" frame="box">
+<td style="font-size: 30px"><b><u>Results</u></b></td>
+<td align="right"><button class="Exportascsv"  onclick='location.href=mine2();'><b>Export as CSV<b></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+</table>
+
+  {% for enrich in data %}
+  <h4> Full Name: {{ enrich.enrichment_name }}  <br>
+
+
+Reference(s): 
+  {% for key, value in referencesdict.items %}
+  {% if key in enrich.references_type %}
+  <h4>  {{value}} </h4>
+  {% endif %}
+  {% endfor %}
+
+{% endfor %}
+    </div>
+</div>
+<script>
+
+var url = window.location.href;
+var number= url.slice(35,-1);
+var string = "enrich-basic/" + number + "/";
+var string2="btn" + number
+
+function mine2() {
+return "http://localhost:8000/enrich-basic/" + number + "/export/";
+}
+
+
+if ((window.location.href.indexOf(string) != -1) &&(number!="0")) {
+     var element = document.getElementById(string2);
+     element.style.backgroundColor = '#f44336';
+}
+
+if (window.location.href.indexOf("enrich-basic/0/") != -1) {
+var x = document.getElementById("myDIV");
+x.style.display = "none";
+}
+
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>
+{% endblock %}

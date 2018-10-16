@@ -1,0 +1,81 @@
+{% extends 'layout/layout.html'%}
+
+{% block title%}Contact{% endblock %}
+{% block content %}
+<table>
+  <td></td>
+</table>
+
+<div class="leftntopnav">
+<br>
+<h1 style="font-size: 40px"><b>&nbsp&nbspContact Us</b></h1>
+<br>
+<h3>
+&nbsp&nbspHamad Bin Khalifa Research Complex
+<br>
+&nbsp&nbspEducation City
+<br>
+&nbsp&nbspDoha, Qatar
+<br>
+&nbsp&nbspPhone: +974 4454 0629
+<br>
+&nbsp&nbspFax: +974 4454 0630
+<br>
+</h3>
+<hr>
+<br>
+ <form action="/action_page.php">
+    <label for="fname">&nbsp&nbspFirst Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+<br>
+<br>
+    <label for="lname">&nbsp&nbspLast Name</label>
+    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+<br>
+<br>
+    <label for="country">&nbsp&nbspCountry</label>
+    <select id="country" name="country">
+      <option value="australia">Australia</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+    </select>
+<br>
+<br>
+    <label for="subject">&nbsp&nbspSubject</label>
+    <textarea id="subject" name="subject" placeholder="Write something.." style="height:100px"></textarea>
+<br>
+<br>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="submit" value="Submit">
+<br>
+<br>
+  </form>
+</div>
+
+<div class="right" id="map" style="width:750px; height:600px;background:yellow;">
+</div>
+
+<script>
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+function myMap() {
+var mapOptions = {
+    center: new google.maps.LatLng(25.326071, 51.435375),
+    zoom: 15,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
+{% endblock %}

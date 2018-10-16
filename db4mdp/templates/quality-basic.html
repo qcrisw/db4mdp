@@ -1,0 +1,162 @@
+{% extends 'layout/layout.html'%}
+ {% load static %}
+{% block title%}Quality Basic{% endblock %}
+{% block content %}
+    <div class="content">
+<br>
+<br>
+<div class="basicadvance" style="margin: 6px">
+  <a href="http://localhost:8000/quality-basic/0/" class="button">Basic&nbsp&nbsp</a>
+  <a href="http://localhost:8000/qualityadvanced/home" >Advanced</a>
+  </div>
+  <br>
+  <br>
+  <p style="border-bottom: 9px solid black;"></p>
+
+<br>
+<br>
+<table style="max-width: 100%; width: 100%; color: #000000;" frame="box"  >
+
+    <tr align="center"> 
+    <td><button class="butt2" id="btn57" onclick=window.location.href='http://localhost:8000/quality-basic/57/'>Correlation Coefficient</button></td>
+        <td><button class="butt2" id="btn62" onclick=window.location.href='http://localhost:8000/quality-basic/62/'>KL Diverg.</button></td>
+        <td><button class="butt2" id="btn67" onclick=window.location.href='http://localhost:8000/quality-basic/67/'>Persit. Homol.</button></td>
+        <td><button class="butt2" id="btn54" onclick=window.location.href='http://localhost:8000/quality-basic/54/'>Stress/Strain</button></td>
+    </tr>
+    <tr align="center"> 
+    <td><button class="butt2" id="btn63" onclick=window.location.href='http://localhost:8000/quality-basic/63/'>Global Quality Qy</button></td>
+        <td><button class="butt2" id="btn60" onclick=window.location.href='http://localhost:8000/quality-basic/60/'>LC Meta-criterion </button></td>
+        <td><button class="butt2" id="btn61" onclick=window.location.href='http://localhost:8000/quality-basic/61/'>Procrustes Measure </button></td>
+        <td><button class="butt2" id="btn56" onclick=window.location.href='http://localhost:8000/quality-basic/56/'>Topographic Product </button></td>
+    </tr>
+    <tr align="center"> 
+    <td><button class="butt2" id="btn65" onclick=window.location.href='http://localhost:8000/quality-basic/65/'>Graph-based Family</button></td>
+        <td><button class="butt2" id="btn59" onclick=window.location.href='http://localhost:8000/quality-basic/59/'>Mean Rel. Rank Errors </button></td>
+        <td><button class="butt2" id="btn66" onclick=window.location.href='http://localhost:8000/quality-basic/66/'>Smooth. Neigh. Pres. </button></td>
+        <td><button class="butt2" id="btn58" onclick=window.location.href='http://localhost:8000/quality-basic/58/'>Trustworthiness/Continuity </button></td>
+    </tr>
+    <tr align="center"> 
+        <td></td>
+        <td><button class="butt2" id="btn64" onclick=window.location.href='http://localhost:8000/quality-basic/64/'>NIEQA</button></td>
+        <td><button class="butt2" id="btn55" onclick=window.location.href='http://localhost:8000/quality-basic/55/'>Spearman's Correlation  </button></td>
+        <td></td>
+    </tr>
+</table>
+<div id="myDIV">
+<br>
+<br>
+<table style="max-width: 100%; width: 100%; color: #000000;" frame="box" border="0" >
+<td style="font-size: 30px"><b><u>Results</u></b></td>
+<td align="right"><button class="Exportascsv" id="function-click" onclick='location.href=mine2();'><b>Export as CSV<b></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+
+</table>
+<h2>Span<h2>
+  {% for quality in data %}
+  {% if quality.local == "Yes" %}
+  <h4> Local </h4>
+  {% endif %}
+
+  {% if quality.globall == "Yes" %}
+  <h4> Global </h4>
+  {% endif %}
+
+{% endfor %}
+
+
+<h2>Distortion Type<h2>
+
+{% for quality in data %}
+  {% if quality.dissimilarity == "Yes" %}
+  <h4> Dissimilarity </h4>
+  {% endif %}
+
+  {% if quality.correlation == "Yes" %}
+  <h4> Correlation </h4>
+  {% endif %}
+
+    {% if quality.probability == "Yes" %}
+  <h4> Probability </h4>
+  {% endif %}
+
+    {% if quality.rank == "Yes" %}
+  <h4> Rank </h4>
+  {% endif %}
+
+    {% if quality.geometric == "Yes" %}
+  <h4> Geometric </h4>
+  {% endif %}
+
+    {% if quality.set_difference == "Yes" %}
+  <h4> Set Difference </h4>
+  {% endif %}
+
+    {% if quality.homology == "Yes" %}
+  <h4> Homology </h4>
+  {% endif %}
+
+{% endfor %}
+
+{% for quality in data %}
+<h4> Output Range: </h4> <img width="85" src='{% static "" %}{{quality.rangee}}'></img>
+{% endfor %}
+
+{% for quality in data %}
+<h4> Output Best: {{ quality.best}}</h4>
+{% endfor %}
+
+<h2>Reference(s):<h2>
+   {% for quality in data %}
+{% for key, value in referencesdict.items %}
+  {% if key in quality.reference %}
+  <h4>  {{value}} </h4>
+  {% endif %}
+  {% endfor %}
+  {% endfor %}
+    </div>
+</div>
+<script>
+
+
+
+var url = window.location.href;
+var number= url.slice(36,-1);
+var string = "quality-basic/" + number + "/";
+var string2="btn" + number;
+
+function mine2() {
+return "http://localhost:8000/quality-basic/" + number + "/export/";
+}
+
+if ((window.location.href.indexOf(string) != -1) &&(number!="0")) {
+     var element = document.getElementById(string2);
+     element.style.backgroundColor = '#f44336';
+}
+
+
+if (window.location.href.indexOf("quality-basic/0/") != -1) {
+var x = document.getElementById("myDIV");
+x.style.display = "none";
+}
+
+
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+
+
+
+
+
+
+
+</script>
+{% endblock %}

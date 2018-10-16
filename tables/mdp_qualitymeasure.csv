@@ -1,0 +1,14 @@
+55,Spearman's Correlation ,Null,Yes,Null,Yes,Null,Yes,Null,Null,Null,17.png,1,[141],default
+54,Stress/Strain ,Null,Yes,Yes,Null,Null,Null,Null,Null,Null,16.png,0,[29] [79] [132],default
+65,Graph-based Family,Yes,Yes,Yes,Null,Null,Null,Null,Yes,Null,17.png,1,[102],default
+64,NIEQA ,Yes,Yes,Null,Null,Null,Null,Yes,Null,Null,16.png,0,[177],default
+57,Correlation Coefficient,Null,Yes,Yes,Yes,Null,Null,Null,Null,Null,17.png,1,[53],default
+56,Topographic Product ,Yes,Yes,Yes,Null,Null,Null,Null,Null,Null,18.png,0,[14],default
+59,Mean Rel. Rank Errors,Yes,Null,Null,Null,Null,Yes,Null,Null,Null,20.png,0,[83],default
+58,Trustworthiness/Continuity ,Yes,Null,Null,Null,Null,Yes,Null,Null,Null,19.png,1,[161],default
+61,Procrustes Measure ,Yes,Null,Null,Null,Null,Null,Yes,Null,Null,16.png,0,[55],default
+60,LC Meta-criterion ,Yes,Null,Null,Null,Null,Null,Null,Yes,Null,20.png,1,[34],default
+63,Global Quality Qy ,Yes,Yes,Yes,Yes,Null,Yes,Yes,Yes,Null,17.png,1,[99],default
+62,KL Diverg. ,Yes,Null,Null,Null,Yes,Null,Null,Null,Null,16.png,0,[64] [162],default
+67,Persit. Homol. ,Null,Yes,Null,Null,Null,Null,Null,Null,Yes,16.png,0,[125],default
+66,Smooth. Neigh. Pres. ,Yes,Null,Yes,Null,Null,Yes,Null,Null,Null,20.png,0,[108],default

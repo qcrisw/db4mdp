@@ -1,0 +1,268 @@
+{% extends 'layout/layout.html'%}
+ {% load static %}
+<head>
+<style>
+.ButtonClicked {
+    background-color:red;
+}
+</style>
+</head>
+{% block title%}MDP Basic{% endblock %}
+{% block content %}
+    <div class="content">
+<br>
+<br>
+<div class="basicadvance" style="margin: 6px">
+  <a href="http://localhost:8000/mdp-basic/0/" class="button">Basic&nbsp&nbsp</a>
+  <a href="http://localhost:8000/mdpadvanced/home" >Advanced</a>
+  </div>
+  <br>
+  <br>
+  <p style="border-bottom: 9px solid black;"></p>
+
+<br>
+<br>
+<table style="max-width: 100%; width: 100%; color: #000000;" frame="box"  >
+    <tr align="center"> 
+        <td><button class="butt" id="btn1" onclick=window.location.href='http://localhost:8000/mdp-basic/1/'>PCA</button></td>
+        <td><button class="butt" id="btn2" onclick=window.location.href='http://localhost:8000/mdp-basic/2/'>LDA</button></td>
+        <td><button class="butt" id="btn3" onclick=window.location.href='http://localhost:8000/mdp-basic/3/'>Classical MDS</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn4" onclick=window.location.href='http://localhost:8000/mdp-basic/4/'>Kruskal</button></td>
+        <td><button class="butt" id="btn5" onclick=window.location.href='http://localhost:8000/mdp-basic/5/'>NLM</button></td>
+        <td><button class="butt" id="btn6" onclick=window.location.href='http://localhost:8000/mdp-basic/6/'>MCA</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn7" onclick=window.location.href='http://localhost:8000/mdp-basic/7/'>Smacof</button></td>
+        <td><button class="butt" id="btn8" onclick=window.location.href='http://localhost:8000/mdp-basic/8/'>SOM</button></td>
+        <td><button class="butt" id="btn9" onclick=window.location.href='http://localhost:8000/mdp-basic/9/'>FastMap</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn10" onclick=window.location.href='http://localhost:8000/mdp-basic/10/'>Chalmers</button></td>
+        <td><button class="butt" id="btn11" onclick=window.location.href='http://localhost:8000/mdp-basic/11/'>GTM</button></td>
+        <td><button class="butt" id="btn12" onclick=window.location.href='http://localhost:8000/mdp-basic/12/'>Pekalska</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn13" onclick=window.location.href='http://localhost:8000/mdp-basic/13/'>CCA</button></td>
+        <td><button class="butt" id="btn14" onclick=window.location.href='http://localhost:8000/mdp-basic/14/'>LLE</button></button></td>
+        <td><button class="butt" id="btn15" onclick=window.location.href='http://localhost:8000/mdp-basic/15/'>Isomap</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn16" onclick=window.location.href='http://localhost:8000/mdp-basic/16/'>Lapl. Eigenmaps</button></td>
+        <td><button class="butt" id="btn17" onclick=window.location.href='http://localhost:8000/mdp-basic/17/'>Force-Directed</button></td>
+        <td><button class="butt" id="btn18" onclick=window.location.href='http://localhost:8000/mdp-basic/18/'>LTSA</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn19" onclick=window.location.href='http://localhost:8000/mdp-basic/19/'>MVU</button></td>
+        <td><button class="butt" id="btn20" onclick=window.location.href='http://localhost:8000/mdp-basic/20/'>LSP</button></td>
+        <td><button class="butt" id="btn21" onclick=window.location.href='http://localhost:8000/mdp-basic/21/'>SNE</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn22" onclick=window.location.href='http://localhost:8000/mdp-basic/22/'>PLMP</button></td>
+        <td><button class="butt" id="btn23" onclick=window.location.href='http://localhost:8000/mdp-basic/23/'>LAMP</button></td>
+        <td><button class="butt" id="btn24" onclick=window.location.href='http://localhost:8000/mdp-basic/24/'>RBF-MP</button></td>
+    </tr>
+    <tr align="center"> 
+        <td><button class="butt" id="btn25" onclick=window.location.href='http://localhost:8000/mdp-basic/25/'>LoCH</button></td>
+        <td><button class="butt" id="btn26" onclick=window.location.href='http://localhost:8000/mdp-basic/26/'>ClassiMap</button></td>
+        <td><button class="butt" id="btn27" onclick=window.location.href='http://localhost:8000/mdp-basic/27/'>Kelp</button></td>
+    </tr>
+</table>
+<div id="myDIV">
+<br>
+<br>
+<table style="max-width: 100%; width: 100%; color: #000000;" frame="box" border="0" >
+<td style="font-size: 30px"><b><u>Results</u></b></td>
+<td align="right"><button class="Exportascsv"  onclick='location.href=mine2();'><b>Export as CSV<b></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+</table>
+
+
+<h2>Name <h2>
+  {% for mdp in data %}
+  <h4> Short Name: {{ mdp.mdp_name }}  <br>
+
+  Full Name:   {{ mdp.mdp_fullname }} <br>
+
+Reference(s): 
+  {% for key, value in referencesdict.items %}
+  {% if mdp.reference == key %}
+  <h4>  {{ value }} </h4>
+  {% endif %}
+  {% endfor %}
+
+
+{% endfor %}
+
+<br>
+
+<h2>Variants <h2>
+
+
+{%  if data2.count > 0 %}
+
+  {% for var in data2 %}
+  <h4> Variant Name(s): {{ var.variants }} <br></h4>
+  <h4> Reference(s): </h4>
+
+  {% for key, value in referencesdict.items %}
+  {% if key in var.variant_reference %}
+  <h4>  {{value}} </h4>
+  {% endif %}
+  {% endfor %}
+  {% endfor %}
+{% else %}
+<h4>Not Available</h4>
+{% endif %}
+  
+
+<br>
+<h2>Characteristics <h2>
+
+
+  {% for mdp in data %}
+  <h4> Data Type: 
+
+ {% if mdp.dissimilarity == "Yes"  %} 
+    Dissimilarity  &nbsp 
+  {% endif %}
+
+   {% if mdp.ordinal == "Yes"  %} 
+    Ordinal  &nbsp 
+  {% endif %}
+
+   {% if mdp.cartesian == "Yes"  %} 
+    Cartesian  &nbsp 
+  {% endif %}
+
+   {% if mdp.ne_structures == "Yes"  %} 
+    Ne structures  &nbsp 
+  {% endif %}
+
+  {% if mdp.categorical == "Yes"  %} 
+    Categorical 
+  {% endif %}
+
+  <h4> Property: 
+
+  {% if mdp.linearity != "Null"  %} 
+    Linearity  &nbsp 
+  {% endif %}
+
+{% if mdp.supervision != "Null" %} 
+    Supervision &nbsp 
+{% endif %}
+  
+{% if mdp.multi_level != "Null"  %} 
+    Multi-Level  &nbsp 
+{% endif %}
+
+{% if mdp.locality != "Null"  %} 
+    Locality&nbsp 
+{% endif %}
+
+{% if mdp.steerability != "Null" %} 
+    Steerability &nbsp 
+{% endif %}
+
+{% if mdp.stability != "Null"%} 
+    Stability &nbsp 
+{% endif %}
+
+{% if mdp.out_of_core_data != "Null"%} 
+    Out of core data
+{% endif %}
+
+</h4>
+
+<h4> Complexity: <img width="85" src='{% static "" %}{{mdp.complexity}}'></img>
+{% endfor %}
+
+<br>
+
+<h2>Languages <h2>
+ {%  if data3.count > 0 %} 
+  {% for lang in data3 %}
+<h4>
+  {% if lang.cplusplus == "Yes"%} 
+    C++ &nbsp 
+{% endif %}
+
+  {% if lang.python == "Yes"%} 
+    Python &nbsp 
+{% endif %}
+
+  {% if lang.matlab == "Yes"%} 
+    Matlab &nbsp 
+{% endif %}
+
+
+  {% if lang.javascript == "Yes"%} 
+    Javascript <br>
+{% endif %}
+Reference(s): 
+
+{% for key, value in referencesdict.items %}
+  {% if key in lang.r %}
+  <h4>  {{value}} </h4>
+  {% endif %}
+  {% endfor %}
+
+
+</h4>
+{% endfor %}
+{% else %}
+<h4>Not Available</h4>
+{% endif %}
+
+
+
+<h2>Tasks <h2>
+  {%  if data4.count > 0 %} 
+  {% for task in data4 %}
+  <h4> {{ task.task_name }} </h4>
+{% endfor %}
+{% else %}
+<h4>Not Available</h4>
+{% endif %}
+
+<br>
+</div>
+    </div>
+
+<script>
+var url = window.location.href;
+var number= url.slice(32,-1);
+var string = "mdp-basic/" + number + "/";
+var string2="btn" + number
+
+function mine2() {
+return "http://localhost:8000/mdp-basic/" + number + "/export/";
+}
+
+if ((window.location.href.indexOf(string) != -1) &&(number!="0")) {
+     var element = document.getElementById(string2);
+     element.style.backgroundColor = '#f44336';
+}
+
+
+if (window.location.href.indexOf("mdp-basic/0/") != -1) {
+var x = document.getElementById("myDIV");
+x.style.display = "none";
+}
+
+
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("myHeader");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+</script>
+{% endblock %}
