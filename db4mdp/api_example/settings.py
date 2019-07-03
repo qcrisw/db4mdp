@@ -14,6 +14,8 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+GEOIP_PATH =os.path.join(BASE_DIR, 'geoip')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -38,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'import_export',
     'django.contrib.staticfiles',
-    'mdp'
+    'django_user_agents',
+    'mdp',
+    'tracking_analyzer'
 ]
 
 MIDDLEWARE = [
@@ -49,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'api_example.urls'
@@ -65,6 +70,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
+         'libraries':{
+            'mdp_filters': 'mdp.templatetags.mdp_filters',
+
+            }
         },
     },
 ]
@@ -76,14 +86,26 @@ WSGI_APPLICATION = 'api_example.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 # database_url = os.environ['DATABASE_URL']
+#DATABASES = {
+#'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'ADAPTER': 'postgresql',
+#        'NAME': 'postgres',
+#        'USER': 'postgres',
+#        'HOST': '/tmp',
+#        'PORT': '5555'
+#        }
+#    }
+
 DATABASES = {
 'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'ADAPTER': 'postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': '/tmp',
-        'PORT': '5555'
+        'NAME': 'rzowhigs',
+        'USER': 'rzowhigs',
+        'HOST': 'dumbo.db.elephantsql.com',
+        'PASSWORD' : 'K-amH6uOaHUrGDgztWZOxaDaSSnXzUJp',
+        'PORT': '5432'
         }
     }
 
@@ -124,11 +146,20 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_URL = '/home/db4mdp/static/'
 
-
+#For dev server. Otherwise static files wont update
+STATIC_URL = '/Users/MAHE/db4mdp-master/db4mdp/static/'
 
 STATICFILES_DIRS = [
 	os.path.join(BASE_DIR, "static"),
-	'/home/db4mdp/static/'
+	'/Users/MAHE/db4mdp-master/db4mdp/static/'
 ]
+
+#For production
+
+#STATIC_URL = '/home/db4mdp/static/'
+
+#STATICFILES_DIRS = [
+#	os.path.join(BASE_DIR, "static"),
+#	'/home/db4mdp/static/'
+#]

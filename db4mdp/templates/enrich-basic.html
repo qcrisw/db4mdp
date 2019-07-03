@@ -1,55 +1,157 @@
-{% extends 'layout/layout.html'%}
+{% extends 'layout/layoutmain.html'%}
+{% load static %}
+{% load mdp_filters %}
 
-{% block title%}Enrichment{% endblock %}
-{% block content %}
-    <div class="content">
-<br>
+{% block title%}MDP Enrichment{% endblock %}
 
-<br>
-<br>
-<table style="max-width: 100%; width: 100%; color: #000000;" frame="box"  >
-    <tr align="center"> 
-        <td style="border-bottom: 1px solid black; font-size: 30px;"><b>Content Analysis</b></td>
-        <td style="border-bottom: 1px solid black; font-size: 30px;"><b>Distortion Analysis</b></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn101" onclick=window.location.href='/enrich-basic/101/'>Cluster-based Enrichment</button></td>
-        <td><button class="butt" id="btn104" onclick=window.location.href='/enrich-basic/104/'>Distortion Analysis via Probing</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn100" onclick=window.location.href='/enrich-basic/100/'>Direct Enrichment</button></td>
-        <td><button class="butt" id="btn103" onclick=window.location.href='/enrich-basic/103/'>Visualizing Trustworthy and Unreliable Regions</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn102" onclick=window.location.href='/enrich-basic/102/'>Spatially Structured Enrichment</button></td>
-        <td></td>
-    </tr>
-</table>
-<div id="myDIV">
-<br>
-<br>
-<table style="max-width: 100%; width: 100%; color: #000000;" frame="box">
-<td style="font-size: 30px"><b><u>Results</u></b></td>
-<td align="right"><button class="Exportascsv"  onclick='location.href=mine2();'><b>Export as CSV<b></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-</table>
+<!--Needs to be modified so that the results and button are displayed only when the id is valid and there are results to be displayed. Set using the hidden attribute.-->
 
-  {% for enrich in data %}
-  <h4> Full Name: {{ enrich.enrichment_name }}  <br>
+{% block content1 %}
+<style>
+        .band-d {
+            display: none;
+        }
+</style>
+<div class="table-main">
+    <table>
+        <tr>
+            {% for enrich_type in list_of_types %}
+            <th>{{enrich_type}}</th>
+            {% endfor %}
+        </tr>
 
+        <!--<tr>
+        <td>General Layout</td>
+        <td>Axes</td>
+        <td>Items Base Layout</td>
+        <td>Items in Enriched Layout</td>
+    </tr>-->
+        {% for i in max_group %}
+        <tr>
+            {% for i in batch_size_temp %}
+            {% if len_of_types|index_access:forloop.counter0 < forloop.parentloop.counter %}
+            <td></td>
+            {% else %}
+            <td>
+                <a href="/enrich-basic/{{grouped_names|index_access:forloop.counter0|index_access:forloop.parentloop.counter0|index_access:1}}/#Results">
+                    <input type="button" , class="button" , id='btn{{grouped_names|index_access:forloop.counter0|index_access:forloop.parentloop.counter0|index_access:1}}'>
+                    {{grouped_names|index_access:forloop.counter0|index_access:forloop.parentloop.counter0|index_access:0}}
+                </a>
+            </td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        <!--<tr>
+            <td><a href="/tasks-basic/68/#Results"><input type="button" , class="button" , id='btn68'>Dimension Synthesis</a></td>
+            <td><a href="/tasks-basic/74/#Results"><input type="button" , class="button" , id='btn74'>Name Synthesized Dimension </a></td>
+            <td><a href="/tasks-basic/78/#Results"><input type="button" , class="button" , id='btn78'>Discover a Seed Point</a></td>
+            <td><a href="/tasks-basic/86/#Results"><input type="button" , class="button" , id='btn86'>Name Cluster</a></td>
+        </tr>
+        <tr>
+            <td><a href="/tasks-basic/69/#Results"><input type="button" , class="button" , id='btn69'>Out-of-Core Extension</a></td>
+            <td><a href="/tasks-basic/75/#Results"><input type="button" , class="button" , id='btn75'>Map Synthesized Dimension to Original Dimension</a></td>
+            <td><a href="/tasks-basic/79/#Results"><input type="button" , class="button" , id='btn79'>Discover Neighbors in Map</a></td>
+            <td><a href="/tasks-basic/87/#Results"><input type="button" , class="button" , id='btn87'>Discover Neighbors in Data Space</a></td>
+        </tr>
+        <tr>
+            <td><a href="/tasks-basic/70/#Results"><input type="button" , class="button" , id='btn70'>Map Data with Intermediary Landmarks </a></td>
+            <td><a href="/tasks-basic/76/#Results"><input type="button" , class="button" , id='btn76'>Discover Relation Between Original Dimension</a></td>
+            <td><a href="/tasks-basic/80/#Results"><input type="button" , class="button" , id='btn80'>Brush in Map</a></td>
+            <td><a href="/tasks-basic/88/#Results"><input type="button" , class="button" , id='btn88'>Brush in Data Space</a></td>
+        </tr>
+        <tr>
+            <td><a href="/tasks-basic/71/#Results"><input type="button" , class="button" , id='btn71'>Map Labeled Data</a></td>
+            <td><a href="/tasks-basic/77/#Results"><input type="button" , class="button" , id='btn77'>Discover Relation between Visual Pattern & Original Dimension </a></td>
+            <td><a href="/tasks-basic/81/#Results"><input type="button" , class="button" , id='btn81'>Navigate in Map </a></td>
+            <td><a href="/tasks-basic/89/#Results"><input type="button" , class="button" , id='btn89'>Navigate in Data Space </a></td>
+        </tr>
+        <tr>
+            <td><a href="/tasks-basic/72/#Results"><input type="button" , class="button" , id='btn72'>Map Items Relative to Target </a></td>
+            <td></td>
+            <td><a href="/tasks-basic/82/#Results"><input type="button" , class="button" , id='btn82'>Discover a Path in Map</a></td>
+            <td><a href="/tasks-basic/90/#Results"><input type="button" , class="button" , id='btn90'>Discover a Path in Data Space </a></td>
+        </tr>
+        <tr>
+            <td><a href="/tasks-basic/73/#Results"><input type="button" , class="button" , id='btn73'>Multi-Level Mapping</a></td>
+            <td></td>
+            <td><a href="/tasks-basic/83/#Results"><input type="button" , class="button" , id='btn83'>Discover Clusters in Map</a></td>
+            <td><a href="/tasks-basic/91/#Results"><input type="button" , class="button" , id='btn91'>Discover Density-based Clusters in Data Space</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><a href="/tasks-basic/84/#Results"><input type="button" , class="button" , id='btn84'>Discover Outlier in Map</a></td>
+            <td><a href="/tasks-basic/92/#Results"><input type="button" , class="button" , id='btn92'>Discover Density-based Outlier in Data Space</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><a href="/tasks-basic/85/#Results"><input type="button" , class="button" , id='btn85'>Discover Sensitivity-based Outlier in Data Space</a></td>
+            <td><a href="/tasks-basic/93/#Results"><input type="button" , class="button" , id='btn93'>Discover Neighbors of OOC Item in Data Space</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="/tasks-basic/94/#Results"><input type="button" , class="button" , id='btn94'>Discover Class-Outlier in Data Space</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="/tasks-basic/95/#Results"><input type="button" , class="button" , id='btn95'>Discover Class-Outlier in Map</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="/tasks-basic/96/#Results"><input type="button" , class="button" , id='btn96'>Match Clusters and Classes in Map</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="/tasks-basic/97/#Results"><input type="button" , class="button" , id='btn97'>Classify Out-of-Core Item in Map</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="/tasks-basic/98/#Results"><input type="button" , class="button" , id='btn98'>Steer Projection</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><a href="/tasks-basic/99/#Results"><input type="button" , class="button" , id='btn99'>Sample Data Space from Map</a></td>
+        </tr>
+    </table>-->
+{% endblock %}
 
-Reference(s): 
-  {% for key, value in referencesdict.items %}
-  {% if key in enrich.references_type %}
-  <h4>  {{value}} </h4>
-  {% endif %}
-  {% endfor %}
+        {% block content2 %}
+        <div id="Results">
+            <table>
+                <tr>
+                    <th><h4>Results</h4></th>
+                    <th><button class="Exportascsv" onclick='location.href=mine2();'><h4>Export as CSV</h4></button></th>
+                </tr>
+            </table>
 
-{% endfor %}
-    </div>
+            {% for enrich in data %}
+            <h2> Full Name: {{ enrich.enrichment_name }} </h2>
+            <h3> Reference(s): </h3>
+            <ul>
+                {% for reference in references %}
+                <li>  {{reference}} </li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </div>
 </div>
-<script>
+{% endblock %}
 
-var url = window.location.href;
+<script>var url = window.location.href;
 var number= url.slice(35,-1);
 var string = "enrich-basic/" + number + "/";
 var string2="btn" + number
@@ -65,7 +167,7 @@ if ((window.location.href.indexOf(string) != -1) &&(number!="0")) {
 }
 
 if (window.location.href.indexOf("enrich-basic/0/") != -1) {
-var x = document.getElementById("myDIV");
+var x = document.getElementById("Results");
 x.style.display = "none";
 }
 
@@ -80,6 +182,4 @@ function myFunction() {
   } else {
     header.classList.remove("sticky");
   }
-}
-</script>
-{% endblock %}
+}</script>

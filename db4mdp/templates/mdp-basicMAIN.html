@@ -1,0 +1,256 @@
+{% extends 'layout/layoutmain.html'%}
+ {% load static %}
+
+<!--see if you can try making the html code for the site fully automated based on some data for all tables in some python file.-->
+
+{% block title%}MDP Basic{% endblock %}
+{% block content1 %}
+<style>
+    .band-d {
+        display: none;
+    }
+
+    td, th {
+        width: 33%;
+    }
+
+    td {
+        font-size: 22px;
+    }
+</style>
+
+<table>
+    <tr>
+        <th><a href="/mdp-basic/0/" class="button">Basic&nbsp&nbsp&nbsp</a></th>
+        <th><a href="/mdpadvanced/home">Advanced</a></th>
+    </tr>
+    <br/>
+</table>
+<table>
+    <tr>
+        <td><a href="/mdp-basic/1/#Results"><input type="button", class="button", id = 'btn1'>PCA</a></td>
+        <td><a href="/mdp-basic/2/#Results"><input type="button", class="button", id = 'btn2'>LDA</a></td>
+        <td><a href="/mdp-basic/3/#Results"><input type="button", class="button", id = 'btn3'>Classical MDS</a></td>
+    </tr>
+    <tr>
+        <td><a href="/mdp-basic/4/#Results"><input type="button", class="button", id = 'btn4'>Kruskal</a></td>
+        <td><a href="/mdp-basic/5/#Results"><input type="button", class="button", id = 'btn5'>NLM</a></td>
+        <td><a href="/mdp-basic/6/#Results"><input type="button", class="button", id = 'btn6'>MCA</a></td>
+    </tr>
+    <tr>
+        <td><a href="/mdp-basic/7/#Results"><input type="button", class="button", id = 'btn7'>Smacof</a></td>
+        <td><a href="/mdp-basic/8/#Results"><input type="button", class="button", id = 'btn8'>SOM</a></td>
+        <td><a href="/mdp-basic/9/#Results"><input type="button", class="button", id = 'btn9'>FastMap</a></td>
+    </tr>
+    <tr>
+        <td><a href="/mdp-basic/10/#Results"><input type="button", class="button", id = 'btn10'>Chalmers</a></td>
+        <td><a href="/mdp-basic/11/#Results"><input type="button", class="button", id = 'btn11'>GTM</a></td>
+        <td><a href="/mdp-basic/12/#Results"><input type="button", class="button", id = 'btn12'>Pekalska</a></td>
+    </tr>
+    <tr>
+        <td><a href="/mdp-basic/13/#Results"><input type="button", class="button", id = 'btn13'>CCA</a></td>
+        <td><a href="/mdp-basic/14/#Results"><input type="button", class="button", id = 'btn14'>LLE</a></td>
+        <td><a href="/mdp-basic/15/#Results"><input type="button", class="button", id = 'btn15'>Isomap</a></td>
+    </tr>
+    <tr>
+        <td><a href="/mdp-basic/16/#Results"><input type="button", class="button", id = 'btn16'>Lapl. Eigenmaps</a></td>
+        <td><a href="/mdp-basic/17/#Results"><input type="button", class="button", id = 'btn17'>Force-Directed</a></td>
+        <td><a href="/mdp-basic/18/#Results"><input type="button", class="button", id = 'btn18'>LTSA</a></td>
+    </tr>
+    <tr>
+        <td><a href="/mdp-basic/19/#Results"><input type="button", class="button", id = 'btn19'>MVU</a></td>
+        <td><a href="/mdp-basic/20/#Results"><input type="button", class="button", id = 'btn20'>LSP</a></td>
+        <td><a href="/mdp-basic/21/#Results"><input type="button", class="button", id = 'btn21'>SNE</a></td>
+    </tr>
+    <tr>
+        <td><a href="/mdp-basic/22/#Results"><input type="button", class="button", id = 'btn22'>PLMP</a></td>
+        <td><a href="/mdp-basic/23/#Results"><input type="button", class="button", id = 'btn23'>LAMP</a></td>
+        <td><a href="/mdp-basic/24/#Results"><input type="button", class="button", id = 'btn24'>RBF-MP</a></td>
+    </tr>
+    <tr>
+        <td><a href="/mdp-basic/25/#Results"><input type="button", class="button", id = 'btn25'>LoCH</a></td>
+        <td><a href="/mdp-basic/26/#Results"><input type="button", class="button", id = 'btn26'>ClassiMap</a></td>
+        <td><a href="/mdp-basic/27/#Results"><input type="button", class="button", id = 'btn27'>Kelp</a></td>
+    </tr>
+</table>
+{% endblock %}
+
+{% block content2 %}
+<div id="Results">
+    <table>
+        <th>Results</th>
+        <th align="center"><button class="button"><h4>Export as CSV</h4></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+    </table>
+
+    <h2> Name </h2>
+    {% for mdp in data %}
+    <h4> Short Name: {{ mdp.mdp_name }} </h4>
+    <h4> Full Name: {{ mdp.mdp_fullname }} </h4>
+    <p> Reference(s): </p>
+    <ul>
+        {% for key, value in referencesdict.items %}
+            {% if mdp.reference == key %}
+                <li>  {{ value }} </li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    </ul>
+    <h2> Variants </h2>
+    {%  if data2.count > 0 %}
+        <ul>
+        {% for var in data2 %}
+            <li> Variant Name(s): {{ var.variants }} <br/> Reference(s): </li>
+            {% for key, value in referencesdict.items %}
+                {% if key in var.variant_reference %}
+                    <li>  {{value}} </li>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <h4>Not Available</h4>
+    {% endif %}
+    <h2>  Characteristics </h2>
+            {% for mdp in data %}
+                <p>Data Type: </p>
+                <ul>
+                    {% if mdp.dissimilarity == "Yes"  %}
+                    <li>Dissimilarity</li>
+                    {% endif %}
+
+                    {% if mdp.ordinal == "Yes"  %}
+                    <li>Ordinal</li>
+                    {% endif %}
+
+                    {% if mdp.cartesian == "Yes"  %}
+                    <li>Cartesian</li>
+                    {% endif %}
+
+                    {% if mdp.ne_structures == "Yes"  %}
+                    <li>Ne structures</li>
+                    {% endif %}
+
+                    {% if mdp.categorical == "Yes"  %}
+                    <li>Categorical</li>
+                    {% endif %}
+                </ul>
+
+                <p> Property: </p>
+                <ul>
+                    {% if mdp.linearity != "Null"  %}
+                        <li>Linearity</li>
+                    {% endif %}
+
+                    {% if mdp.supervision != "Null" %}
+                        <li>Supervision</li>
+                    {% endif %}
+
+                    {% if mdp.multi_level != "Null"  %}
+                        <li>Multi-Level</li>
+                    {% endif %}
+
+                    {% if mdp.locality != "Null"  %}
+                        <li>Locality</li>
+                    {% endif %}
+
+                    {% if mdp.steerability != "Null" %}
+                        <li>Steerability</li>
+                    {% endif %}
+
+                    {% if mdp.stability != "Null"%}
+                        <li>Stability</li>
+                    {% endif %}
+
+                    {% if mdp.out_of_core_data != "Null"%}
+                        <li>Out of core data</li>
+                    {% endif %}
+                </ul>
+                <p>Complexity: </p>
+                <ul>
+                    <li><img width="85" src='{% static "" %}{{mdp.complexity}}'></img></li>
+                </ul>
+            {% endfor %}
+                </>
+
+                    <h2>
+                        Languages </h2>
+                            {%  if data3.count > 0 %}
+                            {% for lang in data3 %}
+                                {% if lang.cplusplus == "Yes"%}
+                                C++ &nbsp
+                                {% endif %}
+
+                                {% if lang.python == "Yes"%}
+                                Python &nbsp
+                                {% endif %}
+
+                                {% if lang.matlab == "Yes"%}
+                                Matlab &nbsp
+                                {% endif %}
+
+
+                                {% if lang.javascript == "Yes"%}
+                                Javascript
+                                {% endif %}
+                                <br/>
+                                Reference(s):
+                                <ul>
+                                {% for key, value in referencesdict.items %}
+                                    {% if key in lang.r %}
+                                        <li>  {{value}} </li>
+                                    {% endif %}
+                                {% endfor %}
+                                </ul>
+                            {% endfor %}
+                            {% else %}
+                            <h4>Not Available</h4>
+                            {% endif %}
+            <h2>
+                                Tasks </h2>
+                                    {%  if data4.count > 0 %}
+                                    <ul>
+                                        {% for task in data4 %}
+                                            <li> {{ task.task_name }} </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                    <h4>Not Available</h4>
+                                    {% endif %}
+</div>
+    </div>
+
+<script>
+    var url = window.location.href;
+    var number = url.slice(32, -1);
+    var string = "mdp-basic/" + number + "/";
+    var string2 = "btn" + number
+
+    function mine2() {
+        return "/mdp-basic/" + number + "/export/";
+    }
+
+    //if ((window.location.href.indexOf(string) != -1) && (number != "0")) {
+    //    var element = document.getElementById(string2);
+    //    element.style.backgroundColor = '#f44336';
+    //}
+
+
+    if (window.location.href.indexOf("mdp-basic/0/") != -1) {
+        var x = document.getElementById("Results");
+        x.style.display = "none";
+    }
+
+
+    window.onscroll = function () { myFunction() };
+
+    var header = document.getElementById("myHeader");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+    }
+</script>
+{% endblock %}

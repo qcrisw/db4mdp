@@ -1,0 +1,235 @@
+{% extends 'layout/layoutmain.html'%}
+ {% load static %}
+{% block title%}Tasks Basic{% endblock %}
+
+<!--Maybe try to add an input type (such as button,text etc.) also as a parameter with the default set to being button. If changed to text (or maybe a dropdown) the user will be able to 
+select data from a drop-down list or something. The input type will be selected using templating syntax and rendering by CSS.-->
+
+{% block content1 %}
+<style>
+    .band-d {
+        display: none;
+    }
+
+    td, th {
+        width: 25%;
+    }
+
+    td {
+        font-size: 18px;
+    }
+
+    #Results img {
+        background: white;
+    }
+</style>
+
+<table>
+    <tr>
+        <th><a href="/tasks-basic/0/" class="button">Basic&nbsp&nbsp&nbsp</a></th>
+        <th><a href="/taskadvanced/home">Advanced</a></th>
+    </tr>
+</table>
+<p style="border-bottom: 9px solid black;"></p>
+<table>
+    <tr>
+        <td>General Layout</td>
+        <td>Axes</td>
+        <td>Items Base Layout</td>
+        <td>Items in Enriched Layout</td>
+    </tr>
+    <tr>
+        <td><a href="/tasks-basic/68/#Results"><input type="button" , class="button" , id='btn68'>Dimension Synthesis</a></td>
+        <td><a href="/tasks-basic/74/#Results"><input type="button" , class="button" , id='btn74'>Name Synthesized Dimension </a></td>
+        <td><a href="/tasks-basic/78/#Results"><input type="button" , class="button" , id='btn78'>Discover a Seed Point</a></td>
+        <td><a href="/tasks-basic/86/#Results"><input type="button" , class="button" , id='btn86'>Name Cluster</a></td>
+    </tr>
+    <tr>
+        <td><a href="/tasks-basic/69/#Results"><input type="button" , class="button" , id='btn69'>Out-of-Core Extension</a></td>
+        <td><a href="/tasks-basic/75/#Results"><input type="button" , class="button" , id='btn75'>Map Synthesized Dimension to Original Dimension</a></td>
+        <td><a href="/tasks-basic/79/#Results"><input type="button" , class="button" , id='btn79'>Discover Neighbors in Map</a></td>
+        <td><a href="/tasks-basic/87/#Results"><input type="button" , class="button" , id='btn87'>Discover Neighbors in Data Space</a></td>
+    </tr>
+    <tr>
+        <td><a href="/tasks-basic/70/#Results"><input type="button" , class="button" , id='btn70'>Map Data with Intermediary Landmarks </a></td>
+        <td><a href="/tasks-basic/76/#Results"><input type="button" , class="button" , id='btn76'>Discover Relation Between Original Dimension</a></td>
+        <td><a href="/tasks-basic/80/#Results"><input type="button" , class="button" , id='btn80'>Brush in Map</a></td>
+        <td><a href="/tasks-basic/88/#Results"><input type="button" , class="button" , id='btn88'>Brush in Data Space</a></td>
+    </tr>
+    <tr>
+        <td><a href="/tasks-basic/71/#Results"><input type="button" , class="button" , id='btn71'>Map Labeled Data</a></td>
+        <td><a href="/tasks-basic/77/#Results"><input type="button" , class="button" , id='btn77'>Discover Relation between Visual Pattern & Original Dimension </a></td>
+        <td><a href="/tasks-basic/81/#Results"><input type="button" , class="button" , id='btn81'>Navigate in Map </a></td>
+        <td><a href="/tasks-basic/89/#Results"><input type="button" , class="button" , id='btn89'>Navigate in Data Space </a></td>
+    </tr>
+    <tr>
+        <td><a href="/tasks-basic/72/#Results"><input type="button" , class="button" , id='btn72'>Map Items Relative to Target </a></td>
+        <td></td>
+        <td><a href="/tasks-basic/82/#Results"><input type="button" , class="button" , id='btn82'>Discover a Path in Map</a></td>
+        <td><a href="/tasks-basic/90/#Results"><input type="button" , class="button" , id='btn90'>Discover a Path in Data Space </a></td>
+    </tr>
+    <tr>
+        <td><a href="/tasks-basic/73/#Results"><input type="button" , class="button" , id='btn73'>Multi-Level Mapping</a></td>
+        <td></td>
+        <td><a href="/tasks-basic/83/#Results"><input type="button" , class="button" , id='btn83'>Discover Clusters in Map</a></td>
+        <td><a href="/tasks-basic/91/#Results"><input type="button" , class="button" , id='btn91'>Discover Density-based Clusters in Data Space</a></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td><a href="/tasks-basic/84/#Results"><input type="button" , class="button" , id='btn84'>Discover Outlier in Map</a></td>
+        <td><a href="/tasks-basic/92/#Results"><input type="button" , class="button" , id='btn92'>Discover Density-based Outlier in Data Space</a></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td><a href="/tasks-basic/85/#Results"><input type="button" , class="button" , id='btn85'>Discover Sensitivity-based Outlier in Data Space</a></td>
+        <td><a href="/tasks-basic/93/#Results"><input type="button" , class="button" , id='btn93'>Discover Neighbors of OOC Item in Data Space</a></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="/tasks-basic/94/#Results"><input type="button" , class="button" , id='btn94'>Discover Class-Outlier in Data Space</a></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="/tasks-basic/95/#Results"><input type="button" , class="button" , id='btn95'>Discover Class-Outlier in Map</a></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="/tasks-basic/96/#Results"><input type="button" , class="button" , id='btn96'>Match Clusters and Classes in Map</a></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="/tasks-basic/97/#Results"><input type="button" , class="button" , id='btn97'>Classify Out-of-Core Item in Map</a></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="/tasks-basic/98/#Results"><input type="button" , class="button" , id='btn98'>Steer Projection</a></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><a href="/tasks-basic/99/#Results"><input type="button" , class="button" , id='btn99'>Sample Data Space from Map</a></td>
+    </tr>
+</table>
+{% endblock %}
+
+{% block content2 %}
+
+<div id="Results">
+    <table>
+        <td>Results</td>
+        <td><button class="Exportascsv" onclick='location.href=mine2();'><b>Export as CSV<b></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+    </table>
+
+
+    <h2>
+        Name <h2>
+            {% for task in data %}
+            <h4>
+                Full Name: {{ task.task_name }}  <br>
+
+
+                Reference(s):
+                {% for key, value in referencesdict.items %}
+                {% if key in task.reference_list %}
+                <h4>  {{value}} </h4>
+                {% endif %}
+                {% endfor %}
+
+                {% endfor %}
+
+                <br>
+
+                {% for task in data %}
+
+                <h4> Input Space:</h4> <img width="105" src='{% static "" %}{{task.input_space}}'></img>
+
+                {% endfor %}
+
+                <br>
+                {% for task in data %}
+                <h4> Output Space: </h4> <img width="85" src='{% static "" %}{{task.output_space}}'></img>
+                {% endfor %}
+
+
+
+                {% for task in data %}
+                {% if task.actor == "M"%}
+                <h4>  Actor: Machine </h4>
+                {% endif %}
+
+                {% if task.actor == "U"%}
+                <h4>  Actor: User </h4>
+                {% endif %}
+
+                {% if task.actor == "U+M"%}
+                <h4>  Actor:  User and Machine </h4>
+                {% endif %}
+
+                {% if task.actor == "M+U"%}
+                <h4>  Actor:  Machine and User</h4>
+                {% endif %}
+
+                {% endfor %}
+
+
+
+                {% for task in data %}
+                <h4> Task Property: {{ task.task_property }}  </h4>
+                {% endfor %}
+
+
+                {% for task in data %}
+                <h4> Best Matched MDP: {{ task.best_mdp_list }}  </h4>
+                {% endfor %}
+</div>
+    </div>
+<script>
+
+    var url = window.location.href;
+    var number = url.slice(34, -1);
+    var string = "tasks-basic/" + number + "/";
+    var string2 = "btn" + number
+
+    function mine2() {
+        return "/tasks-basic/" + number + "/export/";
+    }
+
+    //if ((window.location.href.indexOf(string) != -1) && (number != "0")) {
+    //    var element = document.getElementById(string2);
+    //    element.style.backgroundColor = '#f44336';
+    //}
+
+    if (window.location.href.indexOf("tasks-basic/0/") != -1) {
+        var x = document.getElementById("Results");
+        x.style.display = "none";
+    }
+
+//window.onscroll = function () { myFunction() };
+
+//var header = document.getElementById("myHeader");
+//var sticky = header.offsetTop;
+
+//function myFunction() {
+//    if (window.pageYOffset >= sticky) {
+//        header.classList.add("sticky");
+//    } else {
+//        header.classList.remove("sticky");
+//    }
+//}
+</script>
+{% endblock %}
+
+

@@ -1,598 +1,612 @@
-{% extends 'layout/layout.html'%}
+{% extends 'layout/layoutmain.html'%}
  {% load static %}
 {% block title%}Tasks Advanced{% endblock %}
-{% block content %}
-    <div class="content">
-<br>
-<br>
-<div class="basicadvance" style="margin: 6px">
-  <a href="/tasks-basic/0/" >Basic&nbsp&nbsp</a>
-  <a href="/taskadvanced/home" class="button">Advanced</a>
-  </div>
-  <br>
-  <br>
-  <p style="border-bottom: 9px solid black;"></p>
-<br>
+
+{% block content1 %}
+<style>
+    .band-d {
+        display: none;
+    }
+
+    td, th {
+        width: 33.333%;
+        padding: 0;
+    }
+
+    .button{
+        padding: 0;
+        height: 50px;
+    }
+
+    td {
+        font-size: 25px;
+    }
+
+    #Results img {
+        background: white;
+    }
+</style>
+
+<table>
+    <tr>
+        <th><a href="/tasks-basic/0/" class="button">Basic&nbsp&nbsp&nbsp</a></th>
+        <th><a href="/taskadvanced/home">Advanced</a></th>
+    </tr>
+    <br/>
+</table>
+
 <table border="0">
-    <td>All</td>
-    <td>
-<label class="switch"> 
-  <input type="checkbox" id="myCheck" value="0" onclick=mine()>
-  <span class="slider round"></span>
-</label>
-    </td>
-    <td>Any</td>
-    <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-    <td>Include</td>
-    <td>
-<label class="switch"> 
-  <input type="checkbox" id="myCheck2" value="0" onclick="buttonFunction(this)" onclick=mine2()>
-  <span class="slider round"></span>
-</label>
-    </td>
-    <td>Exclude</td>
+    <tr>
+        <th>All&nbsp&nbsp</th>
+        <th>
+            <label class="switch">
+                <input type="checkbox" id="myCheck" value="0" onclick=mine()>
+                <span class="slider round"></span>
+            </label>
+        </th>
+        <th>&nbsp&nbspAny&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+        <th>Include&nbsp&nbsp</th>
+        <th>
+            <label class="switch">
+                <input type="checkbox" id="myCheck2" value="0" onclick="buttonFunction(this)" onclick=mine2()>
+                <span class="slider round"></span>
+            </label>
+        </th>
+        <th>&nbsp&nbspExclude</th>
+    </tr>
+</table>
+
+{% endblock %}
+
+{% block content2 %}
+
+<table>
+    <tr>
+        <th>Input Space</th>
+        <th>Output Space</th>
+        <th>Actor</th>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="21.png">  $$ (\underline{\scr{Z}} \times \scr{M})^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="51.png">  $$  \{|\underline{\scr{Z}}| \} \times \underline{\scr{M}} $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="M">Machine</button></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="22.png">  $$ (\scr{D}_{x} \times \scr{M})^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="52.png">  $$ \{p\} \times \underline{\scr{M}} $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="U">User</button></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="23.png">  $$ \{p\} \times \underline{\scr{M}} \times (\scr{D}_{x} \times \scr{M})^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="53.png">  $$ \subseteq \{\underline{p} \} $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="MandU">Machine & User</button></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="24.png">  $$ \{p\} \times \scr{D}_{x} \times (\scr{D}_{x} \times \scr{M})^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="54.png">  $$ \underline{\scr{C}_k} $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="UandM">User & Machine</button></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="25.png">  $$ \scr{M}^\underline{|\scr{C}_{k}|} $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="55.png">  $$ \subseteq \{\underline{n} \} \backslash f $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="26.png">  $$ \{n\} \times \scr{M}^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="56.png">  $$ \subseteq \{ n \} $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="27.png">  $$ \scr{M}^g \times \scr{M}^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="57.png">  $$ \underline{\scr{N}_\scr{M}}_{f_{1}} $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="28.png">  $$ \{ \underline n \} \times \scr{M}^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="58.png">  $$ \subseteq \{\underline{n} \} $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="29.png">  $$ \{ \underline n \}^2 \times \scr{M}^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="59.png">  $$ \underline{\scr{C}^n} $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="30.png">  $$ \scr{M}^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="60.png">  $$ \{\underline{n} \} $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="31.png">  $$ \scr{M}^n \times (\scr{M}^{n-1})^n  $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="61.png">  $$ \underline{\scr{L}} $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="32.png">  $$ (\scr{D}_{x} \times \scr{M})^\underline{|\scr{C}_{k}|} $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="62.png">  $$ \scr{N}_{\scr{D}_\underline{f_{1}}} $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="33.png">  $$ (\underline{\scr{Z}} \times \scr{M})^\underline{|\scr{C}_{k}|} $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="63.png">  $$ \subseteq \{\underline{n} \} $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="34.png">  $$ \{n\} \times \scr{D}_{\delta} \times \scr{M}^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="64.png">  $$ \underline{\scr{C}}^n $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="35.png">  $$ \scr{M} \times \mathbb{R}^+ \times \scr{D}_{\delta}^{n} $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="65.png">  $$ \{\underline{n} \} $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="36.png">  $$ \{\underline n\} \times \mathbb{R}^+ \times (\scr{M} \times \scr{D}_{\delta})^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="66.png">  $$ \mathbb{R}^+ $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="37.png">  $$ \{\underline n\}^2 \times \mathbb{R}^+ \times (\scr{M} \times \scr{D}_{\delta})^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="67.png">  $$ \scr{M}^n $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="38.png">  $$ \mathbb{R}^+ \times (\scr{M} \times \scr{D}_\delta)^n $$</button></td>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="68.png">  $$ \scr{M}^m $$</button></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="40.png">  $$ \scr{D}_\delta \times \scr{M}^n $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="41.png">  $$ (\scr{D}_x \times \scr{M} \times \scr{Z})^m $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="42.png">  $$ \scr{L} \times \mathbb{R}^+ \times (\scr{M} \times \scr{D}_\delta \times \scr{L})^n $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="43.png">  $$ \scr{D}_x^m $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="44.png">  $$ \scr{L} \times (\scr{M} \times \scr{L})^n $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="45.png">  $$ (\scr{M} \times \scr{Z})^m $$  $$ \underline{\scr{C}} \times (\scr{M} \times \scr{L} \times \underline{\scr{C}})^n $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="46.png">  $$ (\scr{M} \times \scr{L} \times \underline{\scr{C}})^n $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="47.png">  $$ \scr{M} \times (\scr{M} \times \scr{L})^n $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="48.png">  $$ (\scr{M} \times \scr{Z})^n $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="49.png">  $$ (\scr{M} \times \scr{Z})^n \times \scr{M}^m $$ </button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="50.png">  $$ (\scr{D}_{x/\delta} \times \scr{M})^n \times \scr{M}^m \times \scr{M}^m $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><button class="button" value="0" onclick="buttonFunction(this)" id="51.png">  $$ (\scr{M} \times \scr{Z})^n $$</button></td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 <br>
 <br>
-<table style="max-width: 100%; width: 100%; color: #000000;" frame="box"  >
-    <tr align="center"> 
-        <td style="border-bottom: 1px solid black; font-size: 30px;"><b>Input Space</b></td>
-        <td style="border-bottom: 1px solid black; font-size: 30px;"><b>Output Space</b></td>
-        <td style="border-bottom: 1px solid black; font-size: 30px;"><b>Actor</b></td>
+<table>
+    <tr>
+        <td><button class="button" onclick="generate();setTimeout(function(){location.href=generate();},500);">Submit</button></td>
     </tr>
-    <tr align="center"> 
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="21.png"><img src='{% static "21.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="51.png"><img src='{% static "51.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="M">Machine</button></td>
-    </tr>
-    <tr align="center"> 
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="22.png"><img src='{% static "22.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="52.png"><img src='{% static "52.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="U">User</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" value="0" onclick="buttonFunction(this)" id="23.png"><img src='{% static "23.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="53.png"><img src='{% static "53.png" %}'  width="auto" height="30px"></button></td>
-        <td><button class="butt" value="0" onclick="buttonFunction(this)" id="MandU">Machine & User</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" value="0" onclick="buttonFunction(this)" id="24.png"><img src='{% static "24.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="54.png"><img src='{% static "54.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="UandM">User & Machine</button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-        <td><button class="butt" value="0" onclick="buttonFunction(this)" id="25.png"><img src='{% static "25.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="55.png"><img src='{% static "55.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="26.png"><img src='{% static "26.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="56.png"><img src='{% static "56.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="27.png"><img src='{% static "27.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="57.png"><img src='{% static "57.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="28.png"><img src='{% static "28.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="58.png"><img src='{% static "58.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="29.png"><img src='{% static "29.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="59.png"><img src='{% static "59.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="30.png"><img src='{% static "30.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="60.png"><img src='{% static "60.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="31.png"><img src='{% static "31.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="61.png"><img src='{% static "61.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="32.png"><img src='{% static "32.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="62.png"><img src='{% static "62.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-         <td><button class="butt" value="0" onclick="buttonFunction(this)" id="33.png"><img src='{% static "33.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="63.png"><img src='{% static "63.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-        <td><button class="butt" value="0" onclick="buttonFunction(this)" id="34.png"><img src='{% static "34.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="64.png"><img src='{% static "64.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="35.png"><img src='{% static "35.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="65.png"><img src='{% static "65.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="36.png"><img src='{% static "36.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="66.png"><img src='{% static "66.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="37.png"><img src='{% static "37.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="67.png"><img src='{% static "67.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="38.png"><img src='{% static "38.png" %}'  width="auto" height="30px"></button></td>
-      <td><button class="butt" value="0" onclick="buttonFunction(this)" id="68.png"><img src='{% static "68.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="40.png"><img src='{% static "40.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="41.png"><img src='{% static "41.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="42.png"><img src='{% static "42.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="43.png"><img src='{% static "43.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="44.png"><img src='{% static "44.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="45.png"><img src='{% static "45.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="46.png"><img src='{% static "46.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-         <td><button class="butt" value="0" onclick="buttonFunction(this)" id="47.png"><img src='{% static "47.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="48.png"><img src='{% static "48.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="49.png"><img src='{% static "49.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="50.png"><img src='{% static "50.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-    <tr align="center"> 
-       <td><button class="butt" value="0" onclick="buttonFunction(this)" id="51.png"><img src='{% static "51.png" %}'  width="auto" height="30px"></button></td>
-        <td></td>
-        <td></td>
-    </tr >
-</table>
-<br>
-<br>
-<table style="background-color: #c59972; width: 100%" frame="box">
-  <tr>
-    <td>&nbsp</td>
-    <td>&nbsp</td>
-    <td>&nbsp</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td align="center"><button class="butt" onclick="generate();setTimeout(function(){location.href=generate();},500);">Submit</button></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>&nbsp</td>
-    <td>&nbsp</td>
-    <td>&nbsp</td>
-  </tr>
 </table>
 <div id="myDIV">
-<br>
-<br>
-<table style="max-width: 100%; width: 100%; color: #000000;" frame="box">
-<td style="font-size: 30px"><b><u>Results</u></b></td>
-<td align="right"><button class="Exportascsv" onclick='location.href=mine3();'><b>Export as CSV<b></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-</table>
+    <table>
+        <tr>
+            <th><h4>Results</h4></th>
+            <th><button class="Exportascsv" onclick='location.href=mine2();'><h4>Export as CSV</h4></button></th>
+        </tr>
+    </table>
 
-
-<div id="andInclude">
-  <h3> Task Name and Reference(s):</h3> 
-{% for q in andqueryinclude %}
-<b>{{ q.task_name}} </b>
-<br>
-{% for key, value in referencesdict.items %}
-  {% if key in q.reference_list %}
-   {{value}} <br>
-  {% endif %}
-  {% endfor %}
-<br>
-<br>
-{% endfor %}
-</div>
-
-<div id="andExclude">
-<h3> Task Name and Reference(s):</h3> 
-{% for q in andqueryexclude %}
-<b>{{ q.task_name}} </b>
-<br>
-{% for key, value in referencesdict.items %}
-  {% if key in q.reference_list %}
-   {{value}} <br>
-  {% endif %}
-  {% endfor %}
-<br>
-<br>
-{% endfor %}
-</div>
-
-<div id="orInclude">
-<h3> Task Name and Reference(s):</h3> 
-{% for q in orqueryinclude %}
-<b>{{ q.task_name}} </b>
-<br>
-{% for key, value in referencesdict.items %}
-  {% if key in q.reference_list %}
-   {{value}} <br>
-  {% endif %}
-  {% endfor %}
-<br>
-<br>
-{% endfor %}
-</div>
-
-<div id="orExclude">
-<h3> Task Name and Reference(s):</h3> 
-{% for q in orqueryexclude %}
-<b>{{ q.task_name}} </b>
-<br>
-{% for key, value in referencesdict.items %}
-  {% if key in q.reference_list %}
-   {{value}} <br>
-  {% endif %}
-  {% endfor %}
-<br>
-<br>
-{% endfor %}
-</div>
-
-
-
-<!-- "or inlcude: "{{data1}} "     --      results: "<br> 
-{% for q in orqueryinclude %}
-OR QUERY Include: {{ q.task_name}} <br> 
-{% endfor %}
-
-<br> <br> 
-
-"and include : "{{data2}} "     --      results: "<br> 
-{% for q in andqueryinclude %}
-AND QUERY Include: {{ q.task_name}} <br> 
-{% endfor %}
-
-<br> <br> 
-"or exlcude: "{{data1}} "     --      results: "<br> 
-{% for q in orqueryexclude %}
-OR QUERY Exclude: {{ q.task_name}} <br> 
-{% endfor %}
-
-<br> <br> 
-
-"and exclude : "{{data2}} "     --      results: "<br> 
-{% for q in andqueryexclude %}
-AND QUERY Exclude: {{ q.task_name}} <br> 
-{% endfor %} -->
-
-
+    <div id="andInclude">
+        <h3> Task Name and Reference(s):</h3>
+        {% for q in andqueryinclude %}
+        <b>{{ q.task_name}} </b>
+        <br>
+        {% for key, value in referencesdict.items %}
+        {% if key in q.reference_list %}
+        {{value}} <br>
+        {% endif %}
+        {% endfor %}
+        <br>
+        <br>
+        {% endfor %}
     </div>
+
+    <div id="andExclude">
+        <h3> Task Name and Reference(s):</h3>
+        {% for q in andqueryexclude %}
+        <b>{{ q.task_name}} </b>
+        <br>
+        {% for key, value in referencesdict.items %}
+        {% if key in q.reference_list %}
+        {{value}} <br>
+        {% endif %}
+        {% endfor %}
+        <br>
+        <br>
+        {% endfor %}
+    </div>
+
+    <div id="orInclude">
+        <h3> Task Name and Reference(s):</h3>
+        {% for q in orqueryinclude %}
+        <b>{{ q.task_name}} </b>
+        <br>
+        {% for key, value in referencesdict.items %}
+        {% if key in q.reference_list %}
+        {{value}} <br>
+        {% endif %}
+        {% endfor %}
+        <br>
+        <br>
+        {% endfor %}
+    </div>
+
+    <div id="orExclude">
+        <h3> Task Name and Reference(s):</h3>
+        {% for q in orqueryexclude %}
+        <b>{{ q.task_name}} </b>
+        <br>
+        {% for key, value in referencesdict.items %}
+
+        {% if key in q.reference_list %}
+        {{value}} <br>
+        {% endif %}
+        {% endfor %}
+        <br>
+        <br>
+        {% endfor %}
+    </div>
+
+
+
+
+
+
+
+    <!-- "or inlcude: "{{data1}} "     --      results: "<br>
+    {% for q in orqueryinclude %}
+    OR QUERY Include: {{ q.task_name}} <br>
+    {% endfor %}
+
+    <br> <br>
+
+    "and include : "{{data2}} "     --      results: "<br>
+    {% for q in andqueryinclude %}
+    AND QUERY Include: {{ q.task_name}} <br>
+    {% endfor %}
+
+    <br> <br>
+    "or exlcude: "{{data1}} "     --      results: "<br>
+    {% for q in orqueryexclude %}
+    OR QUERY Exclude: {{ q.task_name}} <br>
+    {% endfor %}
+
+    <br> <br>
+
+    "and exclude : "{{data2}} "     --      results: "<br>
+    {% for q in andqueryexclude %}
+    AND QUERY Exclude: {{ q.task_name}} <br>
+    {% endfor %} -->
+
+
+</div>
 </div>
 <script>
 
-function mine3() {
-if (window.location.href.indexOf("includeor") != -1){
-return "/task-advanced/orinclude";
-}
-if (window.location.href.indexOf("excludeor") != -1){
-return "/task-advanced/orexclude";
-}
-if (window.location.href.indexOf("includeand") != -1){
-return "/task-advanced/andinclude";
-}
-if (window.location.href.indexOf("excludeand") != -1){
-return "/task-advanced/andexclude";
-}
-}
+    function mine3() {
+        if (window.location.href.indexOf("includeor") != -1) {
+            return "/task-advanced/orinclude";
+        }
+        if (window.location.href.indexOf("excludeor") != -1) {
+            return "/task-advanced/orexclude";
+        }
+        if (window.location.href.indexOf("includeand") != -1) {
+            return "/task-advanced/andinclude";
+        }
+        if (window.location.href.indexOf("excludeand") != -1) {
+            return "/task-advanced/andexclude";
+        }
+    }
 
 
 
-if (window.location.href.indexOf("home") != -1) {
-var x = document.getElementById("myDIV");
-x.style.display = "none";
-}
+    if (window.location.href.indexOf("home") != -1) {
+        var x = document.getElementById("myDIV");
+        x.style.display = "none";
+    }
 
-function buttonFunction(el) {
-  if (el.value == 0){
-  el.style.backgroundColor = "#f44336";
-  el.value = 1;
-}
-else if (el.value == 1){
-    el.style.backgroundColor = "#cecece";
-el.value = 0;
-}
-}
+    function buttonFunction(el) {
+        if (el.value == 0) {
+            el.style.backgroundColor = "#777";
+            el.value = 1;
+        }
+        else if (el.value == 1) {
+            el.style.backgroundColor = "transparent";
+            el.value = 0;
+        }
+    }
 
-function generate(el) { 
+    function generate(el) {
 
-string= '/taskadvanced?'
-if (document.getElementById("21.png").value ==1){
-string+="21.png=21.png&"
-}
-if (document.getElementById("22.png").value ==1){
-string+="22.png=22.png&"
-}
-if (document.getElementById("23.png").value ==1){
-string+="23.png=23.png&"
-}
-if (document.getElementById("24.png").value ==1){
-string+="24.png=24.png&"
-}
-if (document.getElementById("25.png").value ==1){
-string+="25.png=25.png&"
-}
-if (document.getElementById("26.png").value ==1){
-string+="26.png=26.png&"
-}
-if (document.getElementById("27.png").value ==1){
-string+="27.png=27.png&"
-}
-if (document.getElementById("28.png").value ==1){
-string+="28.png=28.png&"
-}
-if (document.getElementById("29.png").value ==1){
-string+="29.png=29.png&"
-}
-if (document.getElementById("30.png").value ==1){
-string+="30.png=30.png&"
-}
-if (document.getElementById("31.png").value ==1){
-string+="31.png=31.png&"
-}
-if (document.getElementById("32.png").value ==1){
-string+="32.png=32.png&"
-}
-if (document.getElementById("33.png").value ==1){
-string+="33.png=33.png&"
-}
-if (document.getElementById("34.png").value ==1){
-string+="34.png=34.png&"
-}
-if (document.getElementById("35.png").value ==1){
-string+="35.png=35.png&"
-}
-if (document.getElementById("36.png").value ==1){
-string+="36.png=36.png&"
-}
-if (document.getElementById("37.png").value ==1){
-string+="37.png=37.png&"
-}
-if (document.getElementById("38.png").value ==1){
-string+="38.png=38.png&"
-}
-if (document.getElementById("40.png").value ==1){
-string+="40.png=40.png&"
-}
-if (document.getElementById("41.png").value ==1){
-string+="41.png=41.png&"
-}
-if (document.getElementById("42.png").value ==1){
-string+="42.png=42.png&"
-}
-if (document.getElementById("43.png").value ==1){
-string+="43.png=43.png&"
-}
-if (document.getElementById("44.png").value ==1){
-string+="44.png=44.png&"
-}
-if (document.getElementById("45.png").value ==1){
-string+="45.png=45.png&"
-}
-if (document.getElementById("46.png").value ==1){
-string+="46.png=46.png&"
-}
-if (document.getElementById("47.png").value ==1){
-string+="47.png=47.png&"
-}
-if (document.getElementById("48.png").value ==1){
-string+="48.png=48.png&"
-}
-if (document.getElementById("49.png").value ==1){
-string+="49.png=49.png&"
-}
-if (document.getElementById("50.png").value ==1){
-string+="50.png=50.png&"
-}
-if (document.getElementById("51.png").value ==1){
-string+="51.png=51.png&"
-}
-if (document.getElementById("52.png").value ==1){
-string+="52.png=52.png&"
-}
-if (document.getElementById("53.png").value ==1){
-string+="53.png=53.png&"
-}
-if (document.getElementById("54.png").value ==1){
-string+="54.png=54.png&"
-}
-if (document.getElementById("55.png").value ==1){
-string+="55.png=55.png&"
-}
-if (document.getElementById("56.png").value ==1){
-string+="56.png=56.png&"
-}
-if (document.getElementById("57.png").value ==1){
-string+="57.png=57.png&"
-}
-if (document.getElementById("58.png").value ==1){
-string+="58.png=58.png&"
-}
-if (document.getElementById("59.png").value ==1){
-string+="59.png=59.png&"
-}
-if (document.getElementById("60.png").value ==1){
-string+="60.png=60.png&"
-}
-if (document.getElementById("61.png").value ==1){
-string+="61.png=61.png&"
-}
-if (document.getElementById("62.png").value ==1){
-string+="62.png=62.png&"
-}
-if (document.getElementById("63.png").value ==1){
-string+="63.png=63.png&"
-}
-if (document.getElementById("64.png").value ==1){
-string+="64.png=64.png&"
-}
-if (document.getElementById("65.png").value ==1){
-string+="65.png=65.png&"
-}
-if (document.getElementById("66.png").value ==1){
-string+="66.png=66.png&"
-}
-if (document.getElementById("67.png").value ==1){
-string+="67.png=67.png&"
-}
-if (document.getElementById("68.png").value ==1){
-string+="68.png=68.png&"
-}
-if (document.getElementById("U").value ==1){
-string+="U=U&"
-}
-if (document.getElementById("M").value ==1){
-string+="M=M&"
-}
-if (document.getElementById("UandM").value ==1){
-string+="UandM=UandM&"
-}
-if (document.getElementById("MandU").value ==1){
-string+="MandU=MandU&"
-}
-if (document.getElementById("myCheck2").value ==0){
-string  +="include";
-}
-if (document.getElementById("myCheck2").value ==1){
-string+= "exclude";
-}
-if (document.getElementById("myCheck").value ==0){
-string  +="and";
-}
-if (document.getElementById("myCheck").value ==1){
-string+= "or";
-}
-return string;
-}
+        string = '/taskadvanced?'
+        if (document.getElementById("21.png").value == 1) {
+            string += "21.png=21.png&"
+        }
+        if (document.getElementById("22.png").value == 1) {
+            string += "22.png=22.png&"
+        }
+        if (document.getElementById("23.png").value == 1) {
+            string += "23.png=23.png&"
+        }
+        if (document.getElementById("24.png").value == 1) {
+            string += "24.png=24.png&"
+        }
+        if (document.getElementById("25.png").value == 1) {
+            string += "25.png=25.png&"
+        }
+        if (document.getElementById("26.png").value == 1) {
+            string += "26.png=26.png&"
+        }
+        if (document.getElementById("27.png").value == 1) {
+            string += "27.png=27.png&"
+        }
+        if (document.getElementById("28.png").value == 1) {
+            string += "28.png=28.png&"
+        }
+        if (document.getElementById("29.png").value == 1) {
+            string += "29.png=29.png&"
+        }
+        if (document.getElementById("30.png").value == 1) {
+            string += "30.png=30.png&"
+        }
+        if (document.getElementById("31.png").value == 1) {
+            string += "31.png=31.png&"
+        }
+        if (document.getElementById("32.png").value == 1) {
+            string += "32.png=32.png&"
+        }
+        if (document.getElementById("33.png").value == 1) {
+            string += "33.png=33.png&"
+        }
+        if (document.getElementById("34.png").value == 1) {
+            string += "34.png=34.png&"
+        }
+        if (document.getElementById("35.png").value == 1) {
+            string += "35.png=35.png&"
+        }
+        if (document.getElementById("36.png").value == 1) {
+            string += "36.png=36.png&"
+        }
+        if (document.getElementById("37.png").value == 1) {
+            string += "37.png=37.png&"
+        }
+        if (document.getElementById("38.png").value == 1) {
+            string += "38.png=38.png&"
+        }
+        if (document.getElementById("40.png").value == 1) {
+            string += "40.png=40.png&"
+        }
+        if (document.getElementById("41.png").value == 1) {
+            string += "41.png=41.png&"
+        }
+        if (document.getElementById("42.png").value == 1) {
+            string += "42.png=42.png&"
+        }
+        if (document.getElementById("43.png").value == 1) {
+            string += "43.png=43.png&"
+        }
+        if (document.getElementById("44.png").value == 1) {
+            string += "44.png=44.png&"
+        }
+        if (document.getElementById("45.png").value == 1) {
+            string += "45.png=45.png&"
+        }
+        if (document.getElementById("46.png").value == 1) {
+            string += "46.png=46.png&"
+        }
+        if (document.getElementById("47.png").value == 1) {
+            string += "47.png=47.png&"
+        }
+        if (document.getElementById("48.png").value == 1) {
+            string += "48.png=48.png&"
+        }
+        if (document.getElementById("49.png").value == 1) {
+            string += "49.png=49.png&"
+        }
+        if (document.getElementById("50.png").value == 1) {
+            string += "50.png=50.png&"
+        }
+        if (document.getElementById("51.png").value == 1) {
+            string += "51.png=51.png&"
+        }
+        if (document.getElementById("52.png").value == 1) {
+            string += "52.png=52.png&"
+        }
+        if (document.getElementById("53.png").value == 1) {
+            string += "53.png=53.png&"
+        }
+        if (document.getElementById("54.png").value == 1) {
+            string += "54.png=54.png&"
+        }
+        if (document.getElementById("55.png").value == 1) {
+            string += "55.png=55.png&"
+        }
+        if (document.getElementById("56.png").value == 1) {
+            string += "56.png=56.png&"
+        }
+        if (document.getElementById("57.png").value == 1) {
+            string += "57.png=57.png&"
+        }
+        if (document.getElementById("58.png").value == 1) {
+            string += "58.png=58.png&"
+        }
+        if (document.getElementById("59.png").value == 1) {
+            string += "59.png=59.png&"
+        }
+        if (document.getElementById("60.png").value == 1) {
+            string += "60.png=60.png&"
+        }
+        if (document.getElementById("61.png").value == 1) {
+            string += "61.png=61.png&"
+        }
+        if (document.getElementById("62.png").value == 1) {
+            string += "62.png=62.png&"
+        }
+        if (document.getElementById("63.png").value == 1) {
+            string += "63.png=63.png&"
+        }
+        if (document.getElementById("64.png").value == 1) {
+            string += "64.png=64.png&"
+        }
+        if (document.getElementById("65.png").value == 1) {
+            string += "65.png=65.png&"
+        }
+        if (document.getElementById("66.png").value == 1) {
+            string += "66.png=66.png&"
+        }
+        if (document.getElementById("67.png").value == 1) {
+            string += "67.png=67.png&"
+        }
+        if (document.getElementById("68.png").value == 1) {
+            string += "68.png=68.png&"
+        }
+        if (document.getElementById("U").value == 1) {
+            string += "U=U&"
+        }
+        if (document.getElementById("M").value == 1) {
+            string += "M=M&"
+        }
+        if (document.getElementById("UandM").value == 1) {
+            string += "UandM=UandM&"
+        }
+        if (document.getElementById("MandU").value == 1) {
+            string += "MandU=MandU&"
+        }
+        if (document.getElementById("myCheck2").value == 0) {
+            string += "include";
+        }
+        if (document.getElementById("myCheck2").value == 1) {
+            string += "exclude";
+        }
+        if (document.getElementById("myCheck").value == 0) {
+            string += "and";
+        }
+        if (document.getElementById("myCheck").value == 1) {
+            string += "or";
+        }
+        return string;
+    }
 
-// And include
-if (window.location.href.indexOf("includeand") != -1){
-var x= document.getElementById("andExclude");
-x.style.display = "none";
-var y= document.getElementById("orInclude");
-y.style.display = "none";
-var z= document.getElementById("orExclude");
-z.style.display = "none";
-}
+    // And include
+    if (window.location.href.indexOf("includeand") != -1) {
+        var x = document.getElementById("andExclude");
+        x.style.display = "none";
+        var y = document.getElementById("orInclude");
+        y.style.display = "none";
+        var z = document.getElementById("orExclude");
+        z.style.display = "none";
+    }
 
-// And exclude
-if (window.location.href.indexOf("excludeand") != -1){
-var x= document.getElementById("andInclude");
-x.style.display = "none";
-var y= document.getElementById("orInclude");
-y.style.display = "none";
-var z= document.getElementById("orExclude");
-z.style.display = "none";
-}
+    // And exclude
+    if (window.location.href.indexOf("excludeand") != -1) {
+        var x = document.getElementById("andInclude");
+        x.style.display = "none";
+        var y = document.getElementById("orInclude");
+        y.style.display = "none";
+        var z = document.getElementById("orExclude");
+        z.style.display = "none";
+    }
 
-// Or include
-if (window.location.href.indexOf("includeor") != -1){
-var a= document.getElementById("orExclude");
-a.style.display = "none";
-var x= document.getElementById("andExclude");
-x.style.display = "none";
-var y= document.getElementById("andInclude");
-y.style.display = "none";
-}
+    // Or include
+    if (window.location.href.indexOf("includeor") != -1) {
+        var a = document.getElementById("orExclude");
+        a.style.display = "none";
+        var x = document.getElementById("andExclude");
+        x.style.display = "none";
+        var y = document.getElementById("andInclude");
+        y.style.display = "none";
+    }
 
-// Or exclude
-if (window.location.href.indexOf("excludeor") != -1){
-var a= document.getElementById("orInclude");
-a.style.display = "none";
-var x= document.getElementById("andExclude");
-x.style.display = "none";
-var y= document.getElementById("andInclude");
-y.style.display = "none";
-}
+    // Or exclude
+    if (window.location.href.indexOf("excludeor") != -1) {
+        var a = document.getElementById("orInclude");
+        a.style.display = "none";
+        var x = document.getElementById("andExclude");
+        x.style.display = "none";
+        var y = document.getElementById("andInclude");
+        y.style.display = "none";
+    }
 
-function mine() {
-var y= document.getElementById("myCheck").value;
-if (y==0){
-document.getElementById("myCheck").value =1;
-}
-else{
-document.getElementById("myCheck").value =0;
-}
-}
-
-
-function mine2() {
-var y= document.getElementById("myCheck2").value;
-if (y==0){
-document.getElementById("myCheck2").value =1;
-}
-else{
-document.getElementById("myCheck2").value =0;
-}
-}
+    function mine() {
+        var y = document.getElementById("myCheck").value;
+        if (y == 0) {
+            document.getElementById("myCheck").value = 1;
+        }
+        else {
+            document.getElementById("myCheck").value = 0;
+        }
+    }
 
 
+    function mine2() {
+        var y = document.getElementById("myCheck2").value;
+        if (y == 0) {
+            document.getElementById("myCheck2").value = 1;
+        }
+        else {
+            document.getElementById("myCheck2").value = 0;
+        }
+    }
 
-window.onscroll = function() {myFunction()};
 
-var header = document.getElementById("myHeader");
-var sticky = header.offsetTop;
 
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
-</script>
-  <script type="text/javascript" async
-  src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async>
+    window.onscroll = function () { myFunction() };
+
+    var header = document.getElementById("myHeader");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+    }
 </script>
 {% endblock %}

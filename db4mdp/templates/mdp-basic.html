@@ -1,268 +1,224 @@
-{% extends 'layout/layout.html'%}
+{% extends 'layout/layoutmain.html'%}
  {% load static %}
-<head>
-<style>
-.ButtonClicked {
-    background-color:red;
-}
-</style>
-</head>
+
 {% block title%}MDP Basic{% endblock %}
-{% block content %}
-    <div class="content">
-<br>
-<br>
-<div class="basicadvance" style="margin: 6px">
-  <a href="/mdp-basic/0/" class="button">Basic&nbsp&nbsp</a>
-  <a href="/mdpadvanced/home" >Advanced</a>
-  </div>
-  <br>
-  <br>
-  <p style="border-bottom: 9px solid black;"></p>
+{% block content1 %}
+<style>
+    td, th {
+        width: 200px;
+    }
 
-<br>
-<br>
-<table style="max-width: 100%; width: 100%; color: #000000;" frame="box"  >
-    <tr align="center"> 
-        <td><button class="butt" id="btn1" onclick=window.location.href='/mdp-basic/1/'>PCA</button></td>
-        <td><button class="butt" id="btn2" onclick=window.location.href='/mdp-basic/2/'>LDA</button></td>
-        <td><button class="butt" id="btn3" onclick=window.location.href='/mdp-basic/3/'>Classical MDS</button></td>
+    td {
+        font-size: 22px;
+    }
+</style>
+
+<h1 text-align="center">Projection Techniques</h1>
+<table>
+    {% for method in ordered_content %}
+    {% if method.mdp_name.1 == 0 %}
+    <tr>
+        {% endif %}
+        <td color="white"><a href="/mdp-basic/{{forloop.counter}}/#Results" , id='btn{{forloop.counter}}'>{{method.mdp_name.0}}</a></td>
+        {% if method.mdp_name.1 == batch_size %}
     </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn4" onclick=window.location.href='/mdp-basic/4/'>Kruskal</button></td>
-        <td><button class="butt" id="btn5" onclick=window.location.href='/mdp-basic/5/'>NLM</button></td>
-        <td><button class="butt" id="btn6" onclick=window.location.href='/mdp-basic/6/'>MCA</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn7" onclick=window.location.href='/mdp-basic/7/'>Smacof</button></td>
-        <td><button class="butt" id="btn8" onclick=window.location.href='/mdp-basic/8/'>SOM</button></td>
-        <td><button class="butt" id="btn9" onclick=window.location.href='/mdp-basic/9/'>FastMap</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn10" onclick=window.location.href='/mdp-basic/10/'>Chalmers</button></td>
-        <td><button class="butt" id="btn11" onclick=window.location.href='/mdp-basic/11/'>GTM</button></td>
-        <td><button class="butt" id="btn12" onclick=window.location.href='/mdp-basic/12/'>Pekalska</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn13" onclick=window.location.href='/mdp-basic/13/'>CCA</button></td>
-        <td><button class="butt" id="btn14" onclick=window.location.href='/mdp-basic/14/'>LLE</button></button></td>
-        <td><button class="butt" id="btn15" onclick=window.location.href='/mdp-basic/15/'>Isomap</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn16" onclick=window.location.href='/mdp-basic/16/'>Lapl. Eigenmaps</button></td>
-        <td><button class="butt" id="btn17" onclick=window.location.href='/mdp-basic/17/'>Force-Directed</button></td>
-        <td><button class="butt" id="btn18" onclick=window.location.href='/mdp-basic/18/'>LTSA</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn19" onclick=window.location.href='/mdp-basic/19/'>MVU</button></td>
-        <td><button class="butt" id="btn20" onclick=window.location.href='/mdp-basic/20/'>LSP</button></td>
-        <td><button class="butt" id="btn21" onclick=window.location.href='/mdp-basic/21/'>SNE</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn22" onclick=window.location.href='/mdp-basic/22/'>PLMP</button></td>
-        <td><button class="butt" id="btn23" onclick=window.location.href='/mdp-basic/23/'>LAMP</button></td>
-        <td><button class="butt" id="btn24" onclick=window.location.href='/mdp-basic/24/'>RBF-MP</button></td>
-    </tr>
-    <tr align="center"> 
-        <td><button class="butt" id="btn25" onclick=window.location.href='/mdp-basic/25/'>LoCH</button></td>
-        <td><button class="butt" id="btn26" onclick=window.location.href='/mdp-basic/26/'>ClassiMap</button></td>
-        <td><button class="butt" id="btn27" onclick=window.location.href='/mdp-basic/27/'>Kelp</button></td>
-    </tr>
+    {% endif %}
+    {% endfor %}
 </table>
-<div id="myDIV">
-<br>
-<br>
-<table style="max-width: 100%; width: 100%; color: #000000;" frame="box" border="0" >
-<td style="font-size: 30px"><b><u>Results</u></b></td>
-<td align="right"><button class="Exportascsv"  onclick='location.href=mine2();'><b>Export as CSV<b></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-</table>
-
-
-<h2>Name <h2>
-  {% for mdp in data %}
-  <h4> Short Name: {{ mdp.mdp_name }}  <br>
-
-  Full Name:   {{ mdp.mdp_fullname }} <br>
-
-Reference(s): 
-  {% for key, value in referencesdict.items %}
-  {% if mdp.reference == key %}
-  <h4>  {{ value }} </h4>
-  {% endif %}
-  {% endfor %}
-
-
-{% endfor %}
-
-<br>
-
-<h2>Variants <h2>
-
-
-{%  if data2.count > 0 %}
-
-  {% for var in data2 %}
-  <h4> Variant Name(s): {{ var.variants }} <br></h4>
-  <h4> Reference(s): </h4>
-
-  {% for key, value in referencesdict.items %}
-  {% if key in var.variant_reference %}
-  <h4>  {{value}} </h4>
-  {% endif %}
-  {% endfor %}
-  {% endfor %}
-{% else %}
-<h4>Not Available</h4>
-{% endif %}
-  
-
-<br>
-<h2>Characteristics <h2>
-
-
-  {% for mdp in data %}
-  <h4> Data Type: 
-
- {% if mdp.dissimilarity == "Yes"  %} 
-    Dissimilarity  &nbsp 
-  {% endif %}
-
-   {% if mdp.ordinal == "Yes"  %} 
-    Ordinal  &nbsp 
-  {% endif %}
-
-   {% if mdp.cartesian == "Yes"  %} 
-    Cartesian  &nbsp 
-  {% endif %}
-
-   {% if mdp.ne_structures == "Yes"  %} 
-    Ne structures  &nbsp 
-  {% endif %}
-
-  {% if mdp.categorical == "Yes"  %} 
-    Categorical 
-  {% endif %}
-
-  <h4> Property: 
-
-  {% if mdp.linearity != "Null"  %} 
-    Linearity  &nbsp 
-  {% endif %}
-
-{% if mdp.supervision != "Null" %} 
-    Supervision &nbsp 
-{% endif %}
-  
-{% if mdp.multi_level != "Null"  %} 
-    Multi-Level  &nbsp 
-{% endif %}
-
-{% if mdp.locality != "Null"  %} 
-    Locality&nbsp 
-{% endif %}
-
-{% if mdp.steerability != "Null" %} 
-    Steerability &nbsp 
-{% endif %}
-
-{% if mdp.stability != "Null"%} 
-    Stability &nbsp 
-{% endif %}
-
-{% if mdp.out_of_core_data != "Null"%} 
-    Out of core data
-{% endif %}
-
-</h4>
-
-<h4> Complexity: <img width="85" src='{% static "" %}{{mdp.complexity}}'></img>
-{% endfor %}
-
-<br>
-
-<h2>Languages <h2>
- {%  if data3.count > 0 %} 
-  {% for lang in data3 %}
-<h4>
-  {% if lang.cplusplus == "Yes"%} 
-    C++ &nbsp 
-{% endif %}
-
-  {% if lang.python == "Yes"%} 
-    Python &nbsp 
-{% endif %}
-
-  {% if lang.matlab == "Yes"%} 
-    Matlab &nbsp 
-{% endif %}
-
-
-  {% if lang.javascript == "Yes"%} 
-    Javascript <br>
-{% endif %}
-Reference(s): 
-
-{% for key, value in referencesdict.items %}
-  {% if key in lang.r %}
-  <h4>  {{value}} </h4>
-  {% endif %}
-  {% endfor %}
-
-
-</h4>
-{% endfor %}
-{% else %}
-<h4>Not Available</h4>
-{% endif %}
-
-
-
-<h2>Tasks <h2>
-  {%  if data4.count > 0 %} 
-  {% for task in data4 %}
-  <h4> {{ task.task_name }} </h4>
-{% endfor %}
-{% else %}
-<h4>Not Available</h4>
-{% endif %}
-
-<br>
-</div>
-    </div>
-
-<script>
-var url = window.location.href;
-var number= url.slice(32,-1);
-var string = "mdp-basic/" + number + "/";
-var string2="btn" + number
-
-function mine2() {
-return "/mdp-basic/" + number + "/export/";
-}
-
-if ((window.location.href.indexOf(string) != -1) &&(number!="0")) {
-     var element = document.getElementById(string2);
-     element.style.backgroundColor = '#f44336';
-}
-
-
-if (window.location.href.indexOf("mdp-basic/0/") != -1) {
-var x = document.getElementById("myDIV");
-x.style.display = "none";
-}
-
-
-window.onscroll = function() {myFunction()};
-
-var header = document.getElementById("myHeader");
-var sticky = header.offsetTop;
-
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
-</script>
 {% endblock %}
+
+{% block content2 %}
+{% if index != '0' %}
+<table>
+    <th>Results</th>
+    <th align="center" width="200px" color="white"><a href="export">Export as CSV</a></th>
+</table>
+
+<h2> Name </h2>
+    {% for mdp in data %}
+<h4> Short Name: {{ mdp.mdp_name }} </h4>
+<h4> Full Name: {{ mdp.mdp_fullname }} </h4>
+
+<h2> Reference(s): <!--<span onclick="displayDiv('references')"><i class="fas fa-chevron-down"></i></span>--></h2>
+<div class="drop-down-content" , id="references">
+    <ul>
+        {% for citation in references %}
+        <li>  {{ citation }} </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+
+<h2> Variants <!--<i class="fas fa-chevron-down" , onclick="displayDiv('references')"></i>--></h2>
+<div class="drop-down-content" , id="variants">
+    {%  if data2.count > 0 %}
+    <ul>
+        {% for var in data2 %}
+        <li> Variant Name(s): {{ var.variants }} <br /> Reference(s): </li>
+        {% for key, value in referencesdict.items %}
+        {% if key in var.variant_reference %}
+        <li>  {{value}} </li>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        {% else %}
+        <h4>Not Available</h4>
+        {% endif %}
+</div>
+
+<h2>  Characteristics <!--<i class="fas fa-chevron-down" , onclick="displayDiv('references')"></i>--></h2>
+<div class="drop-down-content" , id="characteristics">
+    {% for mdp in data %}
+    <p>Data Type: </p>
+    <ul>
+        {% if mdp.dissimilarity != "Not Capable"  %}
+        <li>Dissimilarity: {{mdp.dissimilarity}}</li>
+        {% endif %}
+
+        {% if mdp.ordinal != "Not Capable" %}
+        <li>Ordinal: {{mdp.ordinal}}</li>
+        {% endif %}
+
+        {% if mdp.cartesian != "Not Capable"   %}
+        <li>Cartesian: {{mdp.cartesian}}</li>
+        {% endif %}
+
+        {% if mdp.ne_structures != "Not Capable" %}
+        <li>Ne structures: {{mdp.ne_structures}}</li>
+        {% endif %}
+
+        {% if mdp.categorical != "Not Capable" %}
+        <li>Categorical: {{mdp.categorical}}</li>
+        {% endif %}
+    </ul>
+</div>
+
+<h2> Property:<!--<i class="fas fa-chevron-down" , onclick="displayDiv('references')"></i>--></h2>
+<div class="drop-down-content" , id="properties">
+    <ul>
+        {% if mdp.linearity != "Not Capable"  %}
+        <li>Linearity: {{mdp.linearity}}</li>
+        {% endif %}
+
+        {% if mdp.supervision != "Not Capable" %}
+        <li>Supervision: {{mdp.supervision}}</li>
+        {% endif %}
+
+        {% if mdp.multi_level != "Not Capable"  %}
+        <li>Multi-Level: {{mdp.multi_level}}</li>
+        {% endif %}
+
+        {% if mdp.locality != "Not Capable"  %}
+        <li>Locality: {{mdp.locality}}</li>
+        {% endif %}
+
+        {% if mdp.steerability != "Not Capable" %}
+        <li>Steerability: {{mdp.steerability}}</li>
+        {% endif %}
+
+        {% if mdp.stability != "Not Capable"%}
+        <li>Stability: {{mdp.stability}}</li>
+        {% endif %}
+
+        {% if mdp.out_of_core_data != "Not Capable"%}
+        <li>Out of core data: {{mdp.out_of_core_data}}</li>
+        {% endif %}
+    </ul>
+</div>
+
+<h2>Complexity: <!--<i class="fas fa-chevron-down" , onclick="displayDiv('references')"></i>--></h2>
+<div class="drop-down-content" , id="complexity">
+    <ul>
+        <li>{{ mdp.complexity }}</li>
+    </ul>
+    {% endfor %}
+</div>
+
+<h2>Languages <!--<i class="fas fa-chevron-down" , onclick="displayDiv('references')"></i>--></h2>
+<div class="drop-down-content" , id="languages">
+    <ul>
+        {%  if data3.count > 0 %}
+        {% for lang in data3 %}
+        {% if lang.cplusplus == "Yes"%}
+        <li>C++</li>
+        {% endif %}
+
+        {% if lang.python == "Yes"%}
+        <li>Python</li>
+        {% endif %}
+
+        {% if lang.matlab == "Yes"%}
+        <li>Matlab</li>
+        {% endif %}
+
+
+        {% if lang.javascript == "Yes"%}
+        <li>Javascript</li>
+        {% endif %}
+    </ul>
+    <br />
+    Reference(s):
+    <ul>
+        {% for key, value in referencesdict.items %}
+        {% if key in lang.r %}
+        <li>  {{value}} </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endfor %}
+    {% else %}
+    <h4>Not Available</h4>
+    {% endif %}
+</div>
+
+<h2>Tasks <!--<favicon onclick="displayDiv('references')"><i class="fas fa-chevron-down" , onclick="displayDiv('references')"></i></favicon>--></h2>
+<div class="drop-down-content" , id="tasks">
+    {%  if data4.count > 0 %}
+    <ul>
+        {% for task in data4 %}
+        <li><a href="/tasks-basic/{{task.task_id}}/#Results"> {{ task.task_name }} </a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h4>Not Available</h4>
+    {% endif %}
+</div>
+<!--script>
+    var url = window.location.href;
+    var number = url.slice(32, -1);
+    var string = "mdp-basic/" + number + "/";
+    var string2 = "btn" + number
+
+    function mine2() {
+        return "/mdp-basic/" + number + "/export/";
+    }
+
+    //if ((window.location.href.indexOf(string) != -1) && (number != "0")) {
+    //    var element = document.getElementById(string2);
+    //    element.style.backgroundColor = '#f44336';
+    //}
+
+
+    if (window.location.href.indexOf("mdp-basic/0/") != -1) {
+        var x = document.getElementById("Results");
+        x.style.display = "none";
+    }
+
+
+    window.onscroll = function () { myFunction() };
+
+    var header = document.getElementById("myHeader");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+    }
+</script>-->
+{% endif %}
+
+    {% endblock %}

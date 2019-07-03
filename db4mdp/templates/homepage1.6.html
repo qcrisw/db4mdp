@@ -1,0 +1,36 @@
+{% extends 'layout/layoutmain.html'%}
+{% load static %}
+
+{% block title%}MDP Homepage{% endblock %}
+{% block content1 %}
+
+<style>
+    .band-c, .band-d{
+        display:none;
+    }
+</style>
+
+<h1>Introduction</h1>
+<p>Visual analysis of multidimensional data requires expressive and effective ways to reduce data dimensionality to encode them visually. Multidimensional projections (MDP) figure among the most important visualization techniques in this context, transforming multidimensional data into scatter plots whose visual patterns reflect some notion of similarity in the original data. However, MDP come with distortions that make these visual patterns not trustworthy, hindering users to infer actual data characteristics. Moreover, the patterns present in the scatter plots might not be enough to allow a clear understanding of multidimensional data, motivating the development of layout enrichment methodologies to operate together with MDP. </p><br />
+<p>This survey attempts to cover the main aspects of MDP as a visualization and visual analytic tool. It provides detailed analysis and taxonomies as to the organization of MDP techniques according to their main properties and traits, discussing the impact of such properties for visual perception and other human factors. The survey also approaches the different types of distortions that can result from MDP mappings and it overviews existing mechanisms to quantitatively evaluate such distortions.</p><br />
+<p>A qualitative analysis of the impact of distortions on the different analytic tasks performed by users when exploring multidimensional data through MDP is also presented. Guidelines for choosing the best MDP for an intended task are also provided as a result of this analysis. Finally, layout enrichment schemes to debunk MDP distortions and/or reveal relevant information not directly inferable from the scatter plot are reviewed and discussed in the light of new taxonomies. </p><br />
+<p>We conclude the survey providing future research axes to fill discovered gaps in this domain.</p><br/>
+<img src='{% static "dr.png" %}' , height="500">
+{% endblock %}
+
+<!-- <p>{{ data.mdp_name }} </p> -->
+
+<script>
+    window.onscroll = function () { myFunction() };
+
+    var header = document.getElementById("myHeader");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+    }
+</script>

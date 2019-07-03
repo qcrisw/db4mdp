@@ -1,0 +1,51 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300,600,800,400);
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+
+body {
+    background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px, linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px, linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px, linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px, linear-gradient(90deg, #1b1b1b 10px, transparent 10px), linear-gradient( #1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424 );
+    background-color: #131313;
+    background-size: 20px 20px;
+}
+
+div.custom_navbar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 0, 0;
+}
+
+.heading {
+    padding: 5px 0 0 0;
+    margin: 0;
+    color: white;
+    background-color: black;
+    line-height: normal;
+    font-size: 40px;
+    text-align: center;
+    font-family: 'Ubuntu', 'Open Sans', sans-serif;
+}
+
+.site_logo {
+    text-align: center;
+}
+
+.tablink {
+    background-color: #555;
+    font-family: "Quicksand", sans-serif;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 7px 12px;
+    font-size: 25px;
+    width: 16.6%;
+}
+
+    /* Change background color of buttons on hover */
+    .tablink:hover {
+        background-color: #777;
+    }
+

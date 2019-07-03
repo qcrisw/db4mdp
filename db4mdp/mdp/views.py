@@ -1,19 +1,32 @@
 from django.shortcuts import render
 
 from django.template.response import TemplateResponse
-from mdp.models import MDP,Languages,Variants,QualityMeasure,Task,Enrichment
+from mdp.models import MDP, Languages, QualityMeasure, Task, Enrichment, AboutPage, Reference
 
 from django.template.context import RequestContext
 import mdp.dictionary as dicti
 
-from django.db.models import Q
+from django.db.models import Q, Max
 
 from django.http import HttpResponse
 from .resources import QualityResource, MDPResource, TaskResource, EnrichmentResource, LanguagesResource
 from itertools import chain
 
+from tracking_analyzer.models import Tracker
+from django.shortcuts import get_object_or_404
+
+'''Instead of having 4 columns as it is currently, I have an idea for a drop down. In the advanced section, allow the user to choose multiple parameters for each 
+column. Display the possible parameters, ask them to enter the number of parameters to be applied or add a plus feature where they can keep adding as desired. The
+benefit of this is you won't have to individually check every button on the page for its state. Have an add all button that will let the user add all options under
+a particular column immediately so that they can later remove whatever they want. Atleast create a dropdown table if nothing else (ie separate tables for each column
+that can be opened or closed as desired)'''
+
 def dictionary():
     return dicti.referencesdict
+
+'''Instead of having just one column for mdp basic, we'll have two. One will have everything specific to the method. i.e. latex symbols, references etc.
+The second table will be a list of all parameters such as dissimilarity etc. (as rows) and with the method names as columns. Depending on the data returned, the name is passed to the 
+second table and used to filter out the parameters to be displayed.'''
 
 def mdp(request):
     #data= MDP.objects.filter(mdp_id=pk)
@@ -23,20 +36,88 @@ def mdp(request):
 def contact(request):
     return TemplateResponse(request, 'contact.html', {})
 
+def filter_keep_index(type_list):
+    new_list = []
+    for i in range(len(type_list)):
+        if type_list[i] not in new_list:
+            new_list.append(type_list[i])
+    return new_list
+
+def content_order(content, batch_size=3, key = "mdp_name"):
+    height = int(len(content)/batch_size)
+    loop = 0
+    for method_dict in content:
+        loop+=1
+        method_dict[key] = [method_dict[key], loop]
+        if loop==batch_size:
+            loop=0
+    return (content, height)
+
+
 def about(request):
-    return TemplateResponse(request, 'about.html', {})
+    people = AboutPage.objects.values('name', 'email', 'designation', 'employee_of', 'image_name').order_by('id')
+    batch_size = 2
+    content = content_order(people, batch_size, key = "name")
+    ordered_content, height = content[0], content[1]
+    return TemplateResponse(request, 'about.html', {'height':height, 'batch_size':batch_size, 'ordered_content':ordered_content})
+
+def get_references_1(pk, id_query, id_field = 'mdp_id', ref_field_name = 'reference'):
+    #print(list(MDP.objects.values(id_field)))    
+    max_id = id_query.aggregate(Max(id_field))[id_field+'__max']
+    min_id = max_id - len(id_query)
+    #print(min_id, max_id)
+    return (max_id, min_id)
+
+def data_clean_up(messy_data):
+    temp = ((((((messy_data.replace('[', ' ')).replace(']', ' '))).replace(',',' ')).replace('.',' ')).replace('-', ' ').split(' '))
+    while '' in temp:
+        temp.remove('')
+    return temp
+
+def get_references_2(data, ref_field_name = 'reference'):                               
+        reference_list = (' ').join([ref_dict[ref_field_name] for ref_dict in data])
+        #print(reference_list, 'getref2reflist')
+        reference_ids = data_clean_up(reference_list)
+        references = []
+        query = list(Reference.objects.values('citation').filter(id__in=reference_ids))
+        #print(query)
+        for reference in query:
+            references.append(reference['citation'])
+        #print(references)
+        return references
 
 def mdpbasic(request,pk):
-    data= MDP.objects.filter(mdp_id=pk)
-    data2= Variants.objects.filter(mdp_id_id=pk)
-    data3= Languages.objects.filter(mdp_id_id=pk)
-    data4= Task.objects.filter(mdp_id_id=pk)
-    return TemplateResponse(request, 'mdp-basic.html', {"data": data, "data2":data2, "data3":data3, "data4":data4, "referencesdict": dictionary()})
+    #changes_file = open("new_changes.txt",'r')
+    #content2 = changes_file.read()
+    batch_size = 3 #Change to change the number of boxes displayed per row on the basic page.
+    data = content_order(MDP.objects.values('mdp_name').order_by('mdp_id'), batch_size)
+    ordered_content, height = data[0], data[1]
+    data    = MDP.objects.filter(mdp_id=pk)
+    data2   = Variants.objects.filter(mdp_id_id=pk)
+    data3   = Languages.objects.filter(mdp_id_id=pk)
+    data4   = Task.objects.filter(mdp_id_id=pk)
+    reference_temp, references = '', ''
+    id_query = MDP.objects.values('mdp_id')
+    print(data)
+    print(data['dissimilarity'], 'this is many to many field')
+    max_id, min_id = get_references_1(id_query = id_query, pk = pk)
+    print('this is pk', [pk])
+    if int(pk)>min_id and int(pk)<max_id+1:
+        reference_temp = (list((MDP.objects.values('reference')).filter(mdp_id=pk)))
+        #projection_method = get_object_or_404(MDP, mdp_id=int(pk))
+        #print(type(projection_method))
+        #Tracker.objects.create_from_request(request, projection_method)
+    print(reference_temp, [pk])
+    if reference_temp != '':
+        references = get_references_2(reference_temp)
+
+    return TemplateResponse(request, 'mdp-basic.html', {"index":pk, "ordered_content":ordered_content, "batch_size":batch_size, "height":height, "data": data, "data2":data2, "data3":data3,\
+                                                        "data4":data4, "references": references, 'referencesdict':dictionary()})
 
 def mdpbasicexport(request,pk):
-    person_resource = MDPResource()
+    resource_class = MDPResource()
     queryset = MDP.objects.filter(mdp_id=pk)
-    dataset = person_resource.export(queryset)
+    dataset = resource_class.export(queryset)
     response = HttpResponse(dataset.csv, content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="mdpbasic.csv"'
     return response
@@ -56,7 +137,10 @@ def mdpadvanced(request):
 ##    dataone=Q()
 ##    datatwo=Q()
 ##    
-
+    querylist = ['cartesian','cplusplus','categorical','java','dissimilarity','linearity','matlab','ordinal','locality','python','nestructures','multilevel'\
+        'javascript','stability','outofcoredata','steerability','pcaimage.png']
+    for i in range(1,14):
+        querylist.append(str(i)+".png")
 
         
     queryy= request.GET.get('cartesian','None')
@@ -257,60 +341,72 @@ def mdpadvanced(request):
 # and include
     global final
     final=Languages.objects.filter(data33)\
-                   .values_list('mdp_id__mdp_name','mdp_id__reference').filter(datafinal)
+                    .values_list('mdp_id__mdp_name','mdp_id__reference').filter(datafinal)
 
 # and exclude
     global final2
     final2=Languages.objects.exclude(data33)\
-                   .values_list('mdp_id__mdp_name','mdp_id__reference').exclude(datafinal)
+                    .values_list('mdp_id__mdp_name','mdp_id__reference').exclude(datafinal)
 
 # or include
     global final3
     final3=Languages.objects.filter(data11)\
-                   .values_list('mdp_id__mdp_name','mdp_id__reference').filter(data)
+                    .values_list('mdp_id__mdp_name','mdp_id__reference').filter(data)
 
 # or exclude
     global final4
     final4=Languages.objects.exclude(data11)\
-                   .values_list('mdp_id__mdp_name','mdp_id__reference').exclude(data)
+                    .values_list('mdp_id__mdp_name','mdp_id__reference').exclude(data)
                           
     return TemplateResponse(request, 'mdp-advanced.html', {"check":check,"andinclude": final, "andexclude": final2, "orinclude": final3, "orexclude": final4,"referencesdict": dictionary()})
 
-### or include
-##def mdpadvancedexport1(request):
-##    person_resource = MDPResource()
-##    dataset = person_resource.export(final3)
-##    response = HttpResponse(dataset.csv, content_type='text/csv')
-##    response['Content-Disposition'] = 'attachment; filename="mdpadvanced.csv"'
-##    return response
-##
-### or exclude
-##def mdpadvancedexport2(request):
-##    person_resource = MDPResource()
-##    dataset = person_resource.export(final4)
-##    response = HttpResponse(dataset.csv, content_type='text/csv')
-##    response['Content-Disposition'] = 'attachment; filename="mdpadvanced.csv"'
-##    return response
-##
-### and include
-##def mdpadvancedexport3(request):
-##    person_resource = LanguagesResource()
-##    dataset = person_resource.export(final)
-##    response = HttpResponse(dataset.csv, content_type='text/csv')
-##    response['Content-Disposition'] = 'attachment; filename="mdpadvanced.csv"'
-##    return response
-##
-### and exclude
-##def mdpadvancedexport4(request):
-##    person_resource = MDPResource()
-##    dataset = person_resource.export(final2)
-##    response = HttpResponse(dataset.csv, content_type='text/csv')
-##    response['Content-Disposition'] = 'attachment; filename="mdpadvanced.csv"'
-##    return response
+def I_just_want_to_compress_this():
+    ### or include
+    ##def mdpadvancedexport1(request):
+    ##    person_resource = MDPResource()
+    ##    dataset = person_resource.export(final3)
+    ##    response = HttpResponse(dataset.csv, content_type='text/csv')
+    ##    response['Content-Disposition'] = 'attachment; filename="mdpadvanced.csv"'
+    ##    return response
+    ##
+    ### or exclude
+    ##def mdpadvancedexport2(request):
+    ##    person_resource = MDPResource()
+    ##    dataset = person_resource.export(final4)
+    ##    response = HttpResponse(dataset.csv, content_type='text/csv')
+    ##    response['Content-Disposition'] = 'attachment; filename="mdpadvanced.csv"'
+    ##    return response
+    ##
+    ### and include
+    ##def mdpadvancedexport3(request):
+    ##    person_resource = LanguagesResource()
+    ##    dataset = person_resource.export(final)
+    ##    response = HttpResponse(dataset.csv, content_type='text/csv')
+    ##    response['Content-Disposition'] = 'attachment; filename="mdpadvanced.csv"'
+    ##    return response
+    ##
+    ### and exclude
+    ##def mdpadvancedexport4(request):
+    ##    person_resource = MDPResource()
+    ##    dataset = person_resource.export(final2)
+    ##    response = HttpResponse(dataset.csv, content_type='text/csv')
+    ##    response['Content-Disposition'] = 'attachment; filename="mdpadvanced.csv"'
+    ##    return response
+    pass
 
 def qualitybasic(request,pk):
+    batch_size = 4 #Change to change the number of boxes displayed per row on the basic page.
+    content = content_order(QualityMeasure.objects.values('measure_name', 'measure_id').order_by('measure_id'), batch_size, "measure_name")
+    ordered_content, height = content[0], content[1]
     data= QualityMeasure.objects.filter(measure_id=pk)
-    return TemplateResponse(request, 'quality-basic.html', {"data": data,"referencesdict": dictionary()})
+    reference_temp, references = '', ''
+    id_query = QualityMeasure.objects.values('measure_id')
+    max_id, min_id = get_references_1(id_query = id_query, id_field = 'measure_id', pk = pk)
+    if int(pk)>min_id and int(pk)<max_id+1:
+        reference_temp = (list((QualityMeasure.objects.values('reference')).filter(measure_id=pk)))
+    if reference_temp != '':
+        references = get_references_2(reference_temp)
+    return TemplateResponse(request, 'quality-basic.html', {"ordered_content":ordered_content, "batch_size":batch_size, "height":height, "data": data,"references": references})
 
 def qualitybasicexport(request,pk):
     person_resource = QualityResource()
@@ -319,7 +415,6 @@ def qualitybasicexport(request,pk):
     response = HttpResponse(dataset.csv, content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="qualitybasic.csv"'
     return response
-
 
 def qualityadvanced(request):
     #AND --> &
@@ -441,8 +536,77 @@ def qualityadvancedexport4(request):
     return response
 
 def tasksbasic(request,pk):
+    types = Task.objects.values('task_type')
+    list_of_types = filter_keep_index([type['task_type'] for type in types])
+    len_of_types = [len(Task.objects.filter(task_type = type_name)) for type_name in list_of_types]
+    batch_size = len(list_of_types)
+    grouped_names = []
+    for i in range(batch_size):
+        tasks = Task.objects.filter(task_type = list_of_types[i])
+        grouped_names.append([[task.task_name, task.task_id] for task in tasks])
+
+    reference_temp, references = '', ''
+    id_query = Task.objects.values('task_id')
+    max_id, min_id = get_references_1(id_query = id_query, id_field = 'task_id', pk = pk)
+    best_mdps=[0]
+    if int(pk)>min_id and int(pk)<max_id+1:
+        best_mdp_list = list(Task.objects.values('best_mdp_list').filter(task_id = pk))[0]['best_mdp_list']
+        best_mdps = best_mdp_list.replace(',', ' ')
+        best_mdps = best_mdps.split(' ')
+        while '' in best_mdps:
+            best_mdps.remove('')
+        reference_temp = (list((Task.objects.values('reference_list')).filter(task_id=pk)))
+    if reference_temp != '':
+        references = get_references_2(reference_temp, ref_field_name = 'reference_list')
+
+    sect_info, parent_s, subset, child, sect_len = "None", "NULL", "NULL", "NULL", "NULL"
+    #print([pk], [task['task_id'] for task in list(Task.objects.values('task_id'))])
+    #print([_ for _ in range(min_id+1, max_id+1)])
+    if int(pk) in [_ for _ in range(min_id+1, max_id+1)]:
+        linking = Task.objects.values('parent_id', 'task_subset', 'child_id').filter(task_id = pk)
+        link_data = {}
+        for key, value in linking[0].items():
+            link_data[key] = value
+        print(link_data, 'link_data')
+        parent_s = link_data['parent_id'].split(' ')
+        sect_len = [0, 0]
+        sect_info = "None"
+        if parent_s!=["NULL"]:
+            sect_info = []
+            for parent in parent_s:
+                query = Task.objects.values('task_subset', 'task_name').filter(task_id = parent)[0]
+                if (query['task_subset'] != "NULL"):
+                    sect_info.append(['decomp', query['task_name']])
+                    sect_len[0] += 1
+                else:
+                    sect_info.append(['parent', query['task_name']])
+                    sect_len[1] += 1
+            for i in range(len(sect_info)):
+                sect_info[i] = [int(parent_s[i]), *sect_info[i]]
+        subset = "NULL" if link_data['task_subset'] == "NULL" else [int(task_no) for task_no in link_data['task_subset'].split(' ')]
+        if subset!="NULL":
+            for i in range(len(subset)):
+                query = Task.objects.values('task_name').filter(task_id = subset[i])
+                subset[i] = [query[0]['task_name'], subset[i]]
+        child = "NULL" if link_data['child_id'] == "NULL" else [int(task_no) for task_no in link_data['child_id'].split(' ')]
+        if child!="NULL":
+            for i in range(len(child)):
+                query = Task.objects.values('task_name').filter(task_id = child[i])
+                child[i] = [query[0]['task_name'], child[i]]
+        print(sect_info, child,subset)
+
+    max_group = "*" * max(len_of_types)
     data= Task.objects.filter(task_id=pk)
-    return TemplateResponse(request, 'tasks-basic.html', {"data": data,"referencesdict": dictionary()})
+
+    best_mdp_ids = list(MDP.objects.values('mdp_id', 'mdp_name').filter(mdp_name__in = best_mdps))
+
+    content = content_order(Task.objects.values('task_name').order_by('task_id'), batch_size, 'task_name')
+    ordered_content, height = content[0], content[1]
+    batch_size_temp = "*" * batch_size
+    return TemplateResponse(request, 'tasks-basic.html', {"ordered_content":ordered_content, "list_of_types": list_of_types, "len_of_types": len_of_types, "max_group":max_group, \
+                                                           "height":height, "grouped_names":grouped_names, "batch_size_temp":batch_size_temp, "data": data, "parent_s":parent_s, \
+                                                          "subset":subset, "children":child, "sect_info":sect_info, "sect_len":sect_len, "best_mdps":best_mdp_ids, \
+                                                          "references": references})
 
 def tasksbasicexport(request,pk):
     person_resource = TaskResource()
@@ -755,11 +919,29 @@ def taskadvancedexport4(request):
     response['Content-Disposition'] = 'attachment; filename="taskadvanced.csv"'
     return response
 
-
-
 def enrichbasic(request,pk):
-    data= Enrichment.objects.filter(enrichment_id=pk)
-    return TemplateResponse(request, 'enrich-basic.html', {"data": data,"referencesdict": dictionary()})
+    types = Enrichment.objects.values('enrichment_type')
+    list_of_types = filter_keep_index([type['enrichment_type'] for type in types])
+    len_of_types = [len(Enrichment.objects.filter(enrichment_type = type_name)) for type_name in list_of_types]
+    batch_size = len(list_of_types)
+    grouped_names = []
+    for i in range(batch_size):
+        enrichments = Enrichment.objects.filter(enrichment_type = list_of_types[i])
+        grouped_names.append([[enrichment.enrichment_name, enrichment.enrichment_id] for enrichment in enrichments])
+    reference_temp, references = '', ''
+    id_query = Enrichment.objects.values('enrichment_id')
+    max_id, min_id = get_references_1(id_query = id_query, id_field = 'enrichment_id', pk = pk)
+    if int(pk)>min_id and int(pk)<max_id+1:
+        reference_temp = (list((Enrichment.objects.values('references_type')).filter(enrichment_id=pk)))
+    if reference_temp != '':
+        references = get_references_2(reference_temp, ref_field_name = 'references_type')
+    max_group = "*" * max(len_of_types)
+    data = Enrichment.objects.filter(enrichment_id=pk)
+    content = content_order(Enrichment.objects.values('enrichment_name').order_by('enrichment_id'), batch_size, key = 'enrichment_name')
+    ordered_content, height = content[0], content[1]
+    batch_size_temp = "*" * batch_size
+    return TemplateResponse(request, 'enrich-basic.html', {"ordered_content":ordered_content, "list_of_types": list_of_types, "len_of_types": len_of_types, "max_group":max_group, \
+                                                           "height":height, "grouped_names":grouped_names, "batch_size_temp":batch_size_temp, "data": data,"references": references})
 
 def enrichbasicexport(request,pk):
     person_resource = EnrichmentResource()

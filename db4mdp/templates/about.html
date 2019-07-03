@@ -1,75 +1,83 @@
-{% extends 'layout/layout.html'%}
+{% extends 'layout/layoutmain.html'%}
 {% block title%}About{% endblock %}
-{% block content %}
+{% block content1 %}
     <div class="content">
 
-<h1 style="font-size: 40px"><b>Our Team.</b></h1>
-	<p> I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me and you can start adding your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page. I’m a great place for you to tell a story and let your users know a little more about you.I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me and you can start adding your own content and make changes to the font. Feel free to drag and drop me anywhere you like on your page. I’m a great place for you to tell a story and let your users know a little more about you.</p>
-    <br>
-  <table border="0" width="100%">
-  <tr>
-    <td>&nbsp</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-    <td style="border: 2px solid black; text-align: left;"><img src="/home/db4mdp/static/micheal.png" width="30%; height="100%" ><h3>Dr. Micheal Aupetit
-      <br>Scientist
-      <br> Social Computing
-      <br>maupetit@qf.org.qa</h3></td>
-    <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-    <td style="border: 2px solid black"><img src="/home/db4mdp/static/luis.png" width="30%; height="100%" ><h3>Luis Gustavo Nonato
-      <br>New York University
-      <br>Visiting Professor
-      <br>maupetit@qf.org.qa</h3></td>
-    <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-  </tr>
-    <tr>
-    <td>&nbsp</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-    <tr>
-    <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-    <td style="border: 2px solid black; text-align: left;"><img src="/home/db4mdp/static/blank.png"  width="30%; height="100%" ><h3>Ali Sajjad
-      <br>Bachelor of Sceince
-      <br> Business Information Systems '2018
-      <br>ali.sajjad.hussain@hotmail.co.uk</h3></td>
-    <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-   <td style="border: 2px solid black; text-align: left;"><img src="/home/db4mdp/static/blank.png"  width="30%; height="100%" ><h3>Mosammat Samiha Sadeka
-      <br>Bachelor of Sceince
-      <br> Information Systems '2019
-      <br>msadeka@qatar.cmu.edu</h3></td>
-    <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-  </tr>
-    <tr>
-    <td>&nbsp</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  </table>
-</div>
+<h1><b>Our Team.</b></h1>
+<table>
+    {% for person in ordered_content %}
+        {% if person.name.1 == 0 %}
+            <tr>
+        {% endif %}
+        <td><img src="/home/db4mdp/static/{{person.image_name}}"><br/>
+        <h3>{{person.name.0}}</h3><br/>
+        {{person.designation}}<br/>
+        {{person.employee_of}}<br/>
+        {{person.email}}
+        </td>
+        {% if person.name.1 == batch_size %}
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
 
-<script>
-window.onscroll = function() {myFunction()};
+        <!--<table>
+      <tr>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+        <td><img src="/home/db4mdp/static/micheal.png" width="30%; height="100%" ><h3>Dr. Micheal Aupetit
+          <br>Scientist
+          <br> Social Computing
+          <br>maupetit@qf.org.qa</h3></td>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+        <td style="border: 2px solid black"><img src="/home/db4mdp/static/luis.png" width="30%; height="100%" ><h3>Luis Gustavo Nonato
+          <br>New York University
+          <br>Visiting Professor
+          <br>maupetit@qf.org.qa</h3></td>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+      </tr>
+        <tr>
+        <td>&nbsp</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+        <tr>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+        <td style="border: 2px solid black; text-align: left;"><img src="/home/db4mdp/static/blank.png"  width="30%; height="100%" ><h3>Ali Sajjad
+          <br>Bachelor of Sceince
+          <br> Business Information Systems '2018
+          <br>ali.sajjad.hussain@hotmail.co.uk</h3></td>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+       <td style="border: 2px solid black; text-align: left;"><img src="/home/db4mdp/static/blank.png"  width="30%; height="100%" ><h3>Mosammat Samiha Sadeka
+          <br>Bachelor of Sceince
+          <br> Information Systems '2019
+          <br>msadeka@qatar.cmu.edu</h3></td>
+        <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+      </tr>
+        <tr>
+        <td>&nbsp</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </table>
+    </div>-->
 
-var header = document.getElementById("myHeader");
-var sticky = header.offsetTop;
+        <script>
+            window.onscroll = function () { myFunction() };
 
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
-</script>
+            var header = document.getElementById("myHeader");
+            var sticky = header.offsetTop;
 
-{% endblock %}
+            function myFunction() {
+                if (window.pageYOffset >= sticky) {
+                    header.classList.add("sticky");
+                } else {
+                    header.classList.remove("sticky");
+                }
+            }
+        </script>
+
+        {% endblock %}

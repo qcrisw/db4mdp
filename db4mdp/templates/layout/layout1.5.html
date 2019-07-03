@@ -1,0 +1,62 @@
+﻿ {% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title%}{% endblock %}</title>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css'>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylermainv1.522.css' %}"/>
+</head>
+<body>
+    <div class="l-site">
+        <div class="site-header">
+            <div class="logo">
+                <img src='{% static "qcri.png" %}'>
+            </div>
+            <div class="header_nav">
+
+                <h1>Multidimensional Projections for Visual Analytics</h1>
+
+                <div class="l-nav">
+                    <nav class="nav">
+                        <ul>
+                            <li class="nav-primary"><a href="/mdp/">Home</a></li>
+                            <li class="nav-primary"><a href="/mdp-basic/0/">Techniques</a></li>
+                            <li class="nav-primary"><a href="/tasks-basic/0/">Tasks</a></li>
+                            <li class="nav-primary"><a href="/quality-basic/0/">Quality Measure</a></li>
+                            <li class="nav-primary"><a href="/enrich-basic/0/">Enrichment</a></li>
+                            <li class="nav-secondary"><a href="/about/">About</a></li>
+                            <li class="nav-secondary"><a href="/contact/">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="l-page">
+            <section class="band band-b">
+                <div class="band-container">
+                    <div class="band-inner">
+                        {% block content1 %}{% endblock %}
+                    </div>
+                </div>
+            </section>
+            <section class="band band-c">
+                <div class="band-container">
+                    <div class="band-inner">
+                        {% block content2 %}{% endblock %}
+                    </div>
+                </div>
+            </section>
+            <section class="band band-d">
+                <div class="band-container">
+                    <div class="band-inner">
+                        {% block content3 %}{% endblock %}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
