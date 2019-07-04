@@ -51,6 +51,13 @@ python db4mdp/manage.py migrate mdp
 
 #import csv files into database
 #PGPASSWORD = K-amH6uOaHUrGDgztWZOxaDaSSnXzUJp
-psql -h dumbo.db.elephantsql.com -U rzowhigs -d rzowhigs -p 5432 -a -f -w
+echo $PWD
+export PGPASSFILE=.pgpass
+ls -a
+chmod 0600 .pgpass
+
+#python hello.py
+#psql -h dumbo.db.elephantsql.com -U rzowhigs -d rzowhigs -p 5432 -a -f -w
+#python hello.py
 
 python db4mdp/manage.py runserver 0.0.0.0:8000
